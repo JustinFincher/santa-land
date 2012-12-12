@@ -31,7 +31,7 @@ public class FrameRateCounter : DrawableGameComponent
     protected override void LoadContent()
     {
         spriteBatch = new SpriteBatch(GraphicsDevice);
-        spriteFont = Game.Content.Load<SpriteFont>("FrameRateCounterFont");
+        spriteFont = Game.Content.Load<SpriteFont>("Fonts/FrameRateCounterFont");
         base.LoadContent();
     }
 
