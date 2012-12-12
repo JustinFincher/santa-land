@@ -17,18 +17,19 @@ namespace SantaLand
 
         private float[,] heightData;
 
-        public Planet(GraphicsDevice graphicsDevice, Texture2D heightMap) 
+        public Planet(GraphicsDevice graphicsDevice, Texture2D heightMap, Texture2D texture) 
         {
-            this.graphicsDevice = graphicsDevice;
+            base.graphicsDevice = graphicsDevice;
             this.heightMap = heightMap;
-
+            base.texture = texture;
+            //LoadHeightData();
             InitializeVertices();
             InitializeIndices();
 
             vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionNormalTexture), vertices.Length, BufferUsage.WriteOnly);
-            indexBuffer = new IndexBuffer(graphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
+            indexBuffer = new IndexBuffer(graphicsDevice, typeof(int), indices.Length, BufferUsage.WriteOnly);
 
-            vertexBuffer.SetData<VertexPositionColor>(vertices);
+            vertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
             indexBuffer.SetData<int>(indices);
         }
 
@@ -48,13 +49,12 @@ namespace SantaLand
 
         private void InitializeVertices()
         {
-            vertices = new VertexPositionColor[planeWidth * planeHeight];
-            for (int x = 0; x < planeWidth; x++)
+            vertices = new VertexPositionNormalTexture[planeWidth * planeHeight];
+            for (int y = 0; y < planeHeight; y++)
             {
-                for (int y = 0; y < planeHeight; y++)
+                for (int x = 0; x < planeWidth; x++)
                 {
-                    vertices[x + y * planeWidth].Position = new Vector3(x, heightData[x, y], -y);
-                    vertices[x + y * planeWidth].Color = Color.White;
+                    vertices[x + y * planeWidth] = new VertexPositionNormalTexture(new Vector3(x, y, 0), Vector3.Forward, new Vector2(x/planeWidth, y/planeHeight));
                 }
             }
         }

@@ -19,8 +19,9 @@ namespace SantaLand
         protected IndexBuffer indexBuffer;
         protected Matrix objectWorld;
         protected GraphicsDevice graphicsDevice;
-        protected VertexPositionColor[] vertices;
+        protected VertexPositionNormalTexture[] vertices;
         protected int[] indices;
+        protected Texture2D texture;
 
         public virtual void Initialize()
         {
@@ -43,6 +44,7 @@ namespace SantaLand
             objectWorld = Matrix.Identity;
             objectWorld = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
             effect.World = objectWorld * parentWorld;
+            effect.Texture = texture;
             graphicsDevice.SetVertexBuffer(vertexBuffer);
             graphicsDevice.Indices = indexBuffer;
 
