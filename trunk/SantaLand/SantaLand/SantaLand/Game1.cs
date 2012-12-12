@@ -108,5 +108,10 @@ namespace SantaLand
 
             base.Draw(gameTime);
         }
+
+        void CreateWorld()
+        {
+            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("marsHeightmap"));
+        }
     }
 }

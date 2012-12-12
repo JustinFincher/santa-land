@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrameRateCounter.cs" />
-    <Compile Include="Mars.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
