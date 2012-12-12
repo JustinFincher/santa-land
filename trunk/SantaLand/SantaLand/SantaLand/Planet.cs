@@ -13,14 +13,14 @@ namespace SantaLand
         private int planeWidth = 100;
         private int planeHeight = 50;
 
-        private Texture2D texture;
+        private Texture2D heightMap;
 
         private float[,] heightData;
 
-        public Planet(GraphicsDevice graphicsDevice, Texture2D texture) 
+        public Planet(GraphicsDevice graphicsDevice, Texture2D heightMap) 
         {
             this.graphicsDevice = graphicsDevice;
-            this.texture = texture;
+            this.heightMap = heightMap;
 
             InitializeVertices();
             InitializeIndices();
@@ -32,7 +32,7 @@ namespace SantaLand
             indexBuffer.SetData<int>(indices);
         }
 
-        public void LoadHeightData(Texture2D heightMap)
+        public void LoadHeightData()
         {
             planeWidth = heightMap.Width;
             planeHeight = heightMap.Height;
