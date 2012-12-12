@@ -24,15 +24,17 @@ namespace SantaLand
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferMultiSampling = true;
+
+            gameObjects = new List<GameObject>();
+         
             Content.RootDirectory = "Content";
 
             //FPS counter
             fpsCounter = new FrameRateCounter(this);
             Components.Add(fpsCounter);
             fpsCounter.ShowFPS = true;
-            // Set states ready for 3D  
-            GraphicsDevice.BlendState = BlendState.Opaque;
-            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            
         }
 
         /// <summary>
@@ -43,9 +45,13 @@ namespace SantaLand
         /// </summary>
         protected override void Initialize()
         {
-            graphics = new GraphicsDeviceManager(this);
-            effect = new BasicEffect(graphics.GraphicsDevice);
-            gameObjects = new List<GameObject>();
+            effect = new BasicEffect(GraphicsDevice);
+
+            // Set states ready for 3D  
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+
+            GraphicsDevice.RasterizerState = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.Solid };
 
             foreach (GameObject go in gameObjects)
                 go.Initialize();
@@ -95,7 +101,8 @@ namespace SantaLand
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+
             foreach (GameObject go in gameObjects)
                 go.Draw(effect, effect.World);
 
