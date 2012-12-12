@@ -23,6 +23,8 @@ namespace SantaLand
         Matrix view;
         Matrix projection;
 
+        Vector3 campos = new Vector3(0, 0, 100);
+
         NoClipCamera debugCam;
 
         public Game1()
@@ -48,18 +50,13 @@ namespace SantaLand
         /// </summary>
         protected override void Initialize()
         {
-            effect = new BasicEffect(GraphicsDevice);
-            effect.Projection = projection;
-            effect.World = Matrix.Identity;
-            // Set states ready for 3D  
-            GraphicsDevice.BlendState = BlendState.Opaque;
-            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            GraphicsDevice.RasterizerState = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.Solid };
-
-            debugCam = new NoClipCamera(GraphicsDevice, ref projection, ref view);
+            debugCam = new NoClipCamera(GraphicsDevice, projection, view);
             debugCam.Activate();
 
             CreateWorld();
+
+            view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 4.0f / 3.0f, 1, 500);
 
             foreach (GameObject go in gameObjects)
                 go.Initialize();
@@ -73,6 +70,10 @@ namespace SantaLand
         /// </summary>
         protected override void LoadContent()
         {
+            effect = new BasicEffect(GraphicsDevice);
+            effect.Projection = projection;
+            effect.World = Matrix.Identity;
+
             debugCam.UpdateViewMatrix();
             foreach (GameObject go in gameObjects)
                 go.LoadContent();
@@ -100,6 +101,8 @@ namespace SantaLand
 
             debugCam.ProcessInput(gameTime);
 
+            campos = new Vector3(0, 0, campos.Z + 0.1f);
+            view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
             foreach (GameObject go in gameObjects)
                 go.Update(gameTime);
 
@@ -112,7 +115,11 @@ namespace SantaLand
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            // Set states ready for 3D  
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            GraphicsDevice.RasterizerState = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.WireFrame };
 
             effect.View = view;
             effect.World = Matrix.Identity;
