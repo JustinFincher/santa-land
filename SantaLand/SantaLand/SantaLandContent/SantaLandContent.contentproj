@@ -31,7 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Planets\Mars\mars heightmap.png">
-      <Name>mars heightmap</Name>
+      <Name>marsHeightmap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

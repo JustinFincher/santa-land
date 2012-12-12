@@ -19,6 +19,7 @@ namespace SantaLand
         protected IndexBuffer indexBuffer;
         protected Matrix objectWorld;
         protected GraphicsDevice graphicsDevice;
+        protected VertexPositionNormalTexture[] vertices;
         protected short[] indices;
 
         public virtual void Initialize()
