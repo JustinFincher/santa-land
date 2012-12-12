@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Textures\Planets\Mars\mars texture.png">
-      <Name>mars texture</Name>
+      <Name>marsTexture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

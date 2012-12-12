@@ -20,6 +20,10 @@ namespace SantaLand
         BasicEffect effect;
         List<GameObject> gameObjects;
         FrameRateCounter fpsCounter;
+        Matrix view;
+        Matrix projection;
+
+        NoClipCamera debugCam;
 
         public Game1()
         {
@@ -45,12 +49,17 @@ namespace SantaLand
         protected override void Initialize()
         {
             effect = new BasicEffect(GraphicsDevice);
-
+            effect.Projection = projection;
+            effect.World = Matrix.Identity;
             // Set states ready for 3D  
             GraphicsDevice.BlendState = BlendState.Opaque;
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-
             GraphicsDevice.RasterizerState = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.Solid };
+
+            debugCam = new NoClipCamera(GraphicsDevice, ref projection, ref view);
+            debugCam.Activate();
+
+            CreateWorld();
 
             foreach (GameObject go in gameObjects)
                 go.Initialize();
@@ -64,6 +73,7 @@ namespace SantaLand
         /// </summary>
         protected override void LoadContent()
         {
+            debugCam.UpdateViewMatrix();
             foreach (GameObject go in gameObjects)
                 go.LoadContent();
         }
@@ -88,6 +98,8 @@ namespace SantaLand
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            debugCam.ProcessInput(gameTime);
+
             foreach (GameObject go in gameObjects)
                 go.Update(gameTime);
 
@@ -102,6 +114,11 @@ namespace SantaLand
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            effect.View = view;
+            effect.World = Matrix.Identity;
+            effect.EnableDefaultLighting();
+            effect.TextureEnabled = true;
+
             foreach (GameObject go in gameObjects)
                 go.Draw(effect, effect.World);
 
@@ -110,8 +127,9 @@ namespace SantaLand
 
         void CreateWorld()
         {
-            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("marsHeightmap"));
+            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("Textures/Planets/Mars/marsHeightmap"), Content.Load<Texture2D>("Textures/Planets/Mars/marsTexture"));
             mars.LoadHeightData();
+            gameObjects.Add(mars);
         }
     }
 }
