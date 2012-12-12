@@ -34,7 +34,6 @@ namespace SantaLand
             fpsCounter = new FrameRateCounter(this);
             Components.Add(fpsCounter);
             fpsCounter.ShowFPS = true;
-            
         }
 
         /// <summary>
