@@ -21,7 +21,7 @@ namespace SantaLand
         Matrix view;
         bool activated = false;
 
-        public NoClipCamera(GraphicsDevice graphicsDevice, ref Matrix projection, ref Matrix view)
+        public NoClipCamera(GraphicsDevice graphicsDevice, Matrix projection, Matrix view)
         {
             this.graphicsDevice = graphicsDevice;
             this.projection = projection;
@@ -54,31 +54,34 @@ namespace SantaLand
 
         public void ProcessInput(KeyboardState keyState, float elapsedTime)
         {
-            MouseState currentMouseState = Mouse.GetState();
-            if (currentMouseState != originalMouseState)
+            if (activated)
             {
-                float xDifference = currentMouseState.X - originalMouseState.X;
-                float yDifference = currentMouseState.Y - originalMouseState.Y;
-                leftrightRot -= rotationSpeed * xDifference * elapsedTime;
-                updownRot -= rotationSpeed * yDifference * elapsedTime;
-                Mouse.SetPosition(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
+                MouseState currentMouseState = Mouse.GetState();
+                if (currentMouseState != originalMouseState)
+                {
+                    float xDifference = currentMouseState.X - originalMouseState.X;
+                    float yDifference = currentMouseState.Y - originalMouseState.Y;
+                    leftrightRot -= rotationSpeed * xDifference * elapsedTime;
+                    updownRot -= rotationSpeed * yDifference * elapsedTime;
+                    Mouse.SetPosition(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
+                }
+
+                Vector3 moveVector = new Vector3(0, 0, 0);
+                if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
+                    moveVector += new Vector3(0, 0, -1);
+                if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
+                    moveVector += new Vector3(0, 0, 1);
+                if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
+                    moveVector += new Vector3(1, 0, 0);
+                if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
+                    moveVector += new Vector3(-1, 0, 0);
+                if (keyState.IsKeyDown(Keys.Space))
+                    moveVector += new Vector3(0, 1, 0);
+                if (keyState.IsKeyDown(Keys.LeftShift))
+                    moveVector += new Vector3(0, -1, 0);
+
+                AddToCameraPosition(moveVector * elapsedTime * .2f);
             }
-
-            Vector3 moveVector = new Vector3(0, 0, 0);
-            if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
-                moveVector += new Vector3(0, 0, -1);
-            if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
-                moveVector += new Vector3(0, 0, 1);
-            if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
-                moveVector += new Vector3(1, 0, 0);
-            if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
-                moveVector += new Vector3(-1, 0, 0);
-            if (keyState.IsKeyDown(Keys.Space))
-                moveVector += new Vector3(0, 1, 0);
-            if (keyState.IsKeyDown(Keys.LeftShift))
-                moveVector += new Vector3(0, -1, 0);
-
-            AddToCameraPosition(moveVector * elapsedTime * .2f);
         }
 
         private void AddToCameraPosition(Vector3 vectorToAdd)
