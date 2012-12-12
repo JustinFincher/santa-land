@@ -40,6 +40,18 @@ namespace SantaLand
 
         public virtual void Draw(BasicEffect effect, Matrix parentWorld)
         {
+            objectWorld = Matrix.Identity;
+            objectWorld = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
+            effect.World = objectWorld * parentWorld;
+            graphicsDevice.SetVertexBuffer(vertexBuffer);
+            graphicsDevice.Indices = indexBuffer;
+
+            if (vertices != null && indices != null)
+            {
+                effect.CurrentTechnique.Passes[0].Apply();
+                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertices.Length, 0, indices.Length / 3);
+            }
+
             foreach (GameObject child in children)
                 child.Draw(effect, objectWorld);
         }
