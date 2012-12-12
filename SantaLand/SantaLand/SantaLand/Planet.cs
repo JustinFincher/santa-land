@@ -82,13 +82,6 @@ namespace SantaLand
                 }
             }
         }
-
-        public void Draw()
-        {
-            graphicsDevice.SetVertexBuffer(vertexBuffer);
-            graphicsDevice.Indices = indexBuffer;
-            graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertices.Length, 0, indices.Length / 3);
-        }
     }
 
     static class PlanetHelper
