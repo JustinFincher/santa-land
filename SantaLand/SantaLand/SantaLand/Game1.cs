@@ -17,15 +17,22 @@ namespace SantaLand
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-
         BasicEffect effect;
-
         List<GameObject> gameObjects;
+        FrameRateCounter fpsCounter;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //FPS counter
+            fpsCounter = new FrameRateCounter(this);
+            Components.Add(fpsCounter);
+            fpsCounter.ShowFPS = true;
+            // Set states ready for 3D  
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         }
 
         /// <summary>
@@ -89,41 +96,10 @@ namespace SantaLand
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             foreach (GameObject go in gameObjects)
                 go.Draw(effect, effect.World);
 
             base.Draw(gameTime);
-        }
-
-        struct HSL
-        {
-            public double h, s, l;
-        }
-
-        private HSL RGB2HSL(Color c1)
-        {
-            double themin, themax, delta;
-            HSL c2;
-            themin = Math.Min(c1.R, Math.Min(c1.G, c1.B));
-            themax = Math.Max(c1.R, Math.Max(c1.G, c1.B));
-            delta = themax - themin;
-            c2.l = (themin + themax) / 2;
-            c2.s = 0;
-            if (c2.l > 0 && c2.l < 1)
-                c2.s = delta / (c2.l < 0.5 ? (2 * c2.l) : (2 - 2 * c2.l));
-            c2.h = 0;
-            if (delta > 0)
-            {
-                if (themax == c1.R && themax != c1.G)
-                    c2.h += (c1.G - c1.B) / delta;
-                if (themax == c1.G && themax != c1.B)
-                    c2.h += (2 + (c1.B - c1.R) / delta);
-                if (themax == c1.B && themax != c1.R)
-                    c2.h += (4 + (c1.R - c1.G) / delta);
-                c2.h *= 60;
-            }
-            return (c2);
         }
     }
 }
