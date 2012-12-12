@@ -17,7 +17,10 @@ namespace SantaLand
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+
+        BasicEffect effect;
+
+        List<GameObject> gameObjects;
 
         public Game1()
         {
@@ -33,7 +36,12 @@ namespace SantaLand
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics = new GraphicsDeviceManager(this);
+            effect = new BasicEffect(graphics.GraphicsDevice);
+            gameObjects = new List<GameObject>();
+
+            foreach (GameObject go in gameObjects)
+                go.Initialize();
 
             base.Initialize();
         }
@@ -44,10 +52,8 @@ namespace SantaLand
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            foreach (GameObject go in gameObjects)
+                go.LoadContent();
         }
 
         /// <summary>
@@ -70,7 +76,8 @@ namespace SantaLand
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            foreach (GameObject go in gameObjects)
+                go.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -83,9 +90,40 @@ namespace SantaLand
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            foreach (GameObject go in gameObjects)
+                go.Draw(effect, effect.World);
 
             base.Draw(gameTime);
+        }
+
+        struct HSL
+        {
+            public double h, s, l;
+        }
+
+        private HSL RGB2HSL(Color c1)
+        {
+            double themin, themax, delta;
+            HSL c2;
+            themin = Math.Min(c1.R, Math.Min(c1.G, c1.B));
+            themax = Math.Max(c1.R, Math.Max(c1.G, c1.B));
+            delta = themax - themin;
+            c2.l = (themin + themax) / 2;
+            c2.s = 0;
+            if (c2.l > 0 && c2.l < 1)
+                c2.s = delta / (c2.l < 0.5 ? (2 * c2.l) : (2 - 2 * c2.l));
+            c2.h = 0;
+            if (delta > 0)
+            {
+                if (themax == c1.R && themax != c1.G)
+                    c2.h += (c1.G - c1.B) / delta;
+                if (themax == c1.G && themax != c1.B)
+                    c2.h += (2 + (c1.B - c1.R) / delta);
+                if (themax == c1.B && themax != c1.R)
+                    c2.h += (4 + (c1.R - c1.G) / delta);
+                c2.h *= 60;
+            }
+            return (c2);
         }
     }
 }
