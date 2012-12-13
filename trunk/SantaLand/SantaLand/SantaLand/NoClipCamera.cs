@@ -11,22 +11,23 @@ namespace SantaLand
     class NoClipCamera
     {
         GraphicsDevice graphicsDevice;
-        Vector3 cameraPosition = new Vector3(20.0f, 0.0f, 0.0f);
+        Vector3 cameraPosition = new Vector3(0.0f, 0.0f, 100.0f);
         float leftrightRot = MathHelper.PiOver2;
         float updownRot = -MathHelper.Pi / 10.0f;
         const float rotationSpeed = 0.3f;
-        const float moveSpeed = 30.0f;
+        const float moveSpeed = 100.0f;
         MouseState originalMouseState;
         Matrix projection;
         Matrix view;
         bool activated = false;
+        Game1 game;
 
-        public NoClipCamera(GraphicsDevice graphicsDevice, Matrix projection, Matrix view)
+        public NoClipCamera(Game1 game, GraphicsDevice graphicsDevice, Matrix projection, Matrix view)
         {
             this.graphicsDevice = graphicsDevice;
             this.projection = projection;
             this.view = view;
-
+            this.game = game;
             Mouse.SetPosition(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
             originalMouseState = Mouse.GetState();
         }
@@ -111,9 +112,9 @@ namespace SantaLand
                 aspectRatio,
                 0.1f,
                 1000.0f,
-                out projection);
+                out game.projection);
 
-            view = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, cameraRotatedUpVector);
+            game.view = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, cameraRotatedUpVector);
         }
     }
 }

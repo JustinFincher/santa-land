@@ -10,8 +10,8 @@ namespace SantaLand
 {
     class Planet : GameObject
     {
-        private int planeWidth = 100;
-        private int planeHeight = 50;
+        private int planeWidth = 1024;
+        private int planeHeight = 512;
 
         private Texture2D heightMap;
 
