@@ -23,6 +23,8 @@ namespace SantaLand
         public Matrix view;
         public Matrix projection;
 
+        Vector3 lightDirection;
+
         Vector3 campos = new Vector3(0, 0, 100);
 
         NoClipCamera debugCam;
@@ -76,6 +78,9 @@ namespace SantaLand
             effect.Projection = projection;
             effect.World = Matrix.Identity;
 
+            lightDirection = new Vector3(3, -2, 5);
+            lightDirection.Normalize();
+
             debugCam.UpdateViewMatrix();
             foreach (GameObject go in gameObjects)
                 go.LoadContent();
@@ -117,7 +122,7 @@ namespace SantaLand
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             // Set states ready for 3D  
             GraphicsDevice.BlendState = BlendState.Opaque;
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
@@ -125,7 +130,6 @@ namespace SantaLand
 
             effect.View = view;
             effect.World = Matrix.Identity;
-            effect.EnableDefaultLighting();
             effect.TextureEnabled = true;
 
             foreach (GameObject go in gameObjects)
@@ -136,8 +140,8 @@ namespace SantaLand
 
         void CreateWorld()
         {
-            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("Textures/Planets/Mars/marsHeightmap"), Content.Load<Texture2D>("Textures/Planets/Mars/marsTexture"));
-            mars.LoadHeightData();
+            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("Textures/Planets/Mars/marsHeightmap"), Content.Load<Texture2D>("Textures/Planets/Mars/marsTexture"), lightDirection);
+            //mars.LoadHeightData();
             gameObjects.Add(mars);
         }
     }
