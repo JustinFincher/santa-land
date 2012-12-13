@@ -20,8 +20,8 @@ namespace SantaLand
         BasicEffect effect;
         List<GameObject> gameObjects;
         FrameRateCounter fpsCounter;
-        Matrix view;
-        Matrix projection;
+        public Matrix view;
+        public Matrix projection;
 
         Vector3 campos = new Vector3(0, 0, 100);
 
@@ -50,13 +50,15 @@ namespace SantaLand
         /// </summary>
         protected override void Initialize()
         {
-            debugCam = new NoClipCamera(GraphicsDevice, projection, view);
+            debugCam = new NoClipCamera(this, GraphicsDevice, projection, view);
             debugCam.Activate();
 
             CreateWorld();
 
-            view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 4.0f / 3.0f, 1, 500);
+            //view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
+            //projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 4.0f / 3.0f, 1, 500);
+
+            debugCam.UpdateViewMatrix();
 
             foreach (GameObject go in gameObjects)
                 go.Initialize();
@@ -102,7 +104,7 @@ namespace SantaLand
             debugCam.ProcessInput(gameTime);
 
             campos = new Vector3(0, 0, campos.Z + 0.1f);
-            view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
+            //view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
             foreach (GameObject go in gameObjects)
                 go.Update(gameTime);
 
@@ -119,7 +121,7 @@ namespace SantaLand
             // Set states ready for 3D  
             GraphicsDevice.BlendState = BlendState.Opaque;
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            GraphicsDevice.RasterizerState = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.WireFrame };
+            GraphicsDevice.RasterizerState = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.Solid };
 
             effect.View = view;
             effect.World = Matrix.Identity;
