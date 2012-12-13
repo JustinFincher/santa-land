@@ -15,7 +15,7 @@ namespace SantaLand
         float leftrightRot = MathHelper.PiOver2;
         float updownRot = -MathHelper.Pi / 10.0f;
         const float rotationSpeed = 0.3f;
-        const float moveSpeed = 100.0f;
+        const float moveSpeed = 1000.0f;
         MouseState originalMouseState;
         Matrix projection;
         Matrix view;

@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SantaLand
+namespace NakedSanta
 {
     abstract class GameObject
     {
@@ -19,16 +19,8 @@ namespace SantaLand
         protected IndexBuffer indexBuffer;
         protected Matrix objectWorld;
         protected GraphicsDevice graphicsDevice;
-        protected VertexPositionNormalTexture[] vertices;
-        protected int[] indices;
-        protected Texture2D texture;
-
-        protected Vector3 lightDirection;
-
-        public virtual void Initialize()
-        {
-            
-        }
+        protected VertexPositionColorNormal[] vertices;
+        protected short[] indices;
 
         public virtual void LoadContent()
         {
@@ -46,13 +38,8 @@ namespace SantaLand
             objectWorld = Matrix.Identity;
             objectWorld = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
             effect.World = objectWorld * parentWorld;
-            effect.Texture = texture;
             graphicsDevice.SetVertexBuffer(vertexBuffer);
             graphicsDevice.Indices = indexBuffer;
-
-            //effect.Parameters["xEnableLighting"].SetValue(true);
-            //effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            //effect.Parameters["xAmbient"].SetValue(0.5f);
 
             if (vertices != null && indices != null)
             {

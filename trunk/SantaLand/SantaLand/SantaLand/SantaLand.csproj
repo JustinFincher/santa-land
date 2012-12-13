@@ -73,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrameRateCounter.cs" />
+    <Compile Include="NakedSanta\GameObject.cs" />
+    <Compile Include="NakedSanta\Tile.cs" />
+    <Compile Include="NakedSanta\VertexPositionColorNormal.cs" />
     <Compile Include="NoClipCamera.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="GameObject.cs" />
