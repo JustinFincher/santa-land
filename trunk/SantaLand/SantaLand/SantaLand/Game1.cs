@@ -130,6 +130,7 @@ namespace SantaLand
 
             effect.View = view;
             effect.World = Matrix.Identity;
+            effect.LightingEnabled = true;
             effect.TextureEnabled = true;
 
             foreach (GameObject go in gameObjects)
@@ -140,8 +141,7 @@ namespace SantaLand
 
         void CreateWorld()
         {
-            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("Textures/Planets/Mars/marsHeightmap"), Content.Load<Texture2D>("Textures/Planets/Mars/marsTexture"), lightDirection);
-            //mars.LoadHeightData();
+            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("Textures/Planets/Mars/marsHeightmap"), Content.Load<Texture2D>("Textures/Planets/Mars/marsTextureHires"), lightDirection);
             gameObjects.Add(mars);
         }
     }

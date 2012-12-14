@@ -27,7 +27,7 @@ namespace SantaLand
             LoadHeightData();
             InitializeVertices();
             InitializeIndices();
-            //SetNormals();
+            SetNormals();
 
             vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionNormalTexture), vertices.Length, BufferUsage.WriteOnly);
             indexBuffer = new IndexBuffer(graphicsDevice, typeof(int), indices.Length, BufferUsage.WriteOnly);
@@ -52,21 +52,26 @@ namespace SantaLand
 
         private void InitializeVertices()
         {
-            float yMax = planeHeight-1;
+            float yMax = planeHeight - 1;
             float xMax = planeWidth;
 
             vertices = new VertexPositionNormalTexture[planeWidth * planeHeight];
             for (int y = 0; y < planeHeight; y++)
             {
-                for (int x = 0; x < planeWidth; x++)
+                for (int x = 0; x < planeWidth - 1; x++)
                 {
                     float radius = heightData[x, y] / -MathHelper.PiOver2;
 
                     float ringradius = radius * (float) Math.Sin(y * Math.PI / yMax);
                     Vector3 xyz = new Vector3((float)Math.Cos((xMax - x) * Math.PI * 2.0f / xMax) * ringradius, (float)Math.Cos(y * Math.PI / yMax) * radius, (float) Math.Sin((xMax - x) * Math.PI * 2.0f / xMax) * ringradius);
 
-                    vertices[x + y * planeWidth] = new VertexPositionNormalTexture(xyz, Vector3.Forward, new Vector2(((float)x / planeWidth), (float) y / planeHeight));
+                    vertices[x + y * planeWidth] = new VertexPositionNormalTexture(xyz, Vector3.Forward, new Vector2(((float)x / (planeWidth+1)), (float) y / planeHeight));
                 }
+                //Sew the edges together
+                vertices[planeWidth - 1 + y * planeWidth] = new VertexPositionNormalTexture(
+                    vertices[0 + y * planeWidth].Position,
+                    vertices[0 + y * planeWidth].Normal,
+                    new Vector2(((float)planeWidth / (planeWidth)), (float)y / planeHeight));
             }
         }
 
@@ -87,63 +92,25 @@ namespace SantaLand
             foreach (VertexPositionNormalTexture v in vertices)
                 v.Normal.Normalize();
         }
-
+        
         private void InitializeIndices()
         {
-            indices = new int[(planeWidth-1) * planeHeight * 6];
-            for (int i = 0, v = 0; i < indices.Length; i += 6, v += 4)
-            {
-                indices[i] = v; // front left;
-                indices[i + 1] = (v + 3); // back left;
-                indices[i + 2] = (v + 2); // back right;
-
-                indices[i + 3] = v; // front left;
-                indices[i + 4] = (v + 2); // back left;
-                indices[i + 5] = (v + 1); // back right;  
-            }
-        }
-
-        /*private void InitializeIndices()
-        {
-            int lowerLeft;
-            int lowerRight;
-            int topLeft;
-            int topRight;
-
             indices = new int[(planeWidth - 1) * (planeHeight) * 6];
-            int counter = 0;
+            int i = 0;
             for (int y = 0; y < planeHeight - 1; y++)
             {
-                for (int x = 0; x < planeWidth - 1; x++)
+                for (int x = 0; x < planeWidth - 1; x++, i += 6)
                 {
-                    lowerLeft = x + y * planeWidth;
-                    lowerRight = (x + 1) + y * planeWidth;
-                    topLeft = x + (y + 1) * planeWidth;
-                    topRight = (x + 1) + (y + 1) * planeWidth;
+                    indices[i] = x + y * planeWidth; // bottom left;
+                    indices[i + 1] = x + (y + 1) * planeWidth; // top left;
+                    indices[i + 2] = x + 1 + (y + 1) * planeWidth; // top right;
 
-                    indices[counter++] = topLeft;
-                    indices[counter++] = lowerRight;
-                    indices[counter++] = lowerLeft;
-
-                    indices[counter++] = topLeft;
-                    indices[counter++] = topRight;
-                    indices[counter++] = lowerRight;
+                    indices[i + 3] = x + y * planeWidth; // bottom left;
+                    indices[i + 4] = x + 1 + (y + 1) * planeWidth; // top right;
+                    indices[i + 5] = x + 1 + y * planeWidth; // bottom right;
                 }
-
-                lowerLeft = planeWidth + y * planeWidth;
-                lowerRight = 0 + y * planeWidth;
-                topLeft = planeWidth + (y + 1) * planeWidth;
-                topRight = 0 + (y + 1) * planeWidth;
-
-                indices[counter++] = topLeft;
-                indices[counter++] = lowerRight;
-                indices[counter++] = lowerLeft;
-
-                indices[counter++] = topLeft;
-                indices[counter++] = topRight;
-                indices[counter++] = lowerRight;
             }
-        }//*/
+        }
     }
 
     static class PlanetHelper
