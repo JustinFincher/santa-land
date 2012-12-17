@@ -66,7 +66,7 @@ namespace SantaLand
             vertices = new VertexPositionNormalTexture[planeWidth * planeHeight];
             for (int y = 0; y < planeHeight; y++)
             {
-                for (int x = 0; x < planeWidth; x++)
+                for (int x = 0; x < planeWidth-1; x++)
                 {
                     float radius = heightData[x, y] / -MathHelper.PiOver2;
 

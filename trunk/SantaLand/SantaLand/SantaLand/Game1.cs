@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using SantaLand.Planets;
 
 namespace SantaLand
 {
@@ -135,15 +136,24 @@ namespace SantaLand
             effect.EnableDefaultLighting();
 
             foreach (GameObject go in gameObjects)
+            {
+                effect.World = Matrix.Identity;
                 go.Draw(effect, effect.World);
+            }
 
             base.Draw(gameTime);
         }
 
         void CreateWorld()
         {
+            Sun sun = new Sun(GraphicsDevice, lightDirection);
+            gameObjects.Add(sun);
+
+            Earth earth = new Earth(GraphicsDevice, lightDirection);
+            gameObjects.Add(earth);
+
             Mars mars = new Mars(GraphicsDevice, lightDirection);
-            gameObjects.Add(mars);
+            gameObjects.Add(mars);            
         }
     }
 }

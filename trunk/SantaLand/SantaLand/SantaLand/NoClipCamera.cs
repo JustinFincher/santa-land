@@ -111,7 +111,7 @@ namespace SantaLand
                 MathHelper.PiOver4,
                 aspectRatio,
                 0.1f,
-                1000.0f,
+                100000.0f,
                 out game.projection);
 
             game.view = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, cameraRotatedUpVector);

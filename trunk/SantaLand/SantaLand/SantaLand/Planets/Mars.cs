@@ -13,6 +13,9 @@ namespace SantaLand
         public Mars(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
             : base(graphicsDevice, lightDirection)
         {
+            position = new Vector3(1000, 0, 0);
+            scale = Vector3.One * 0.1f;
+
             children.Add(new Water(graphicsDevice, lightDirection));
         }
 
