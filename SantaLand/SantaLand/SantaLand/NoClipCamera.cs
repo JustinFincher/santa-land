@@ -10,30 +10,25 @@ namespace SantaLand
 {
     class NoClipCamera
     {
-        GraphicsDevice graphicsDevice;
-        Vector3 cameraPosition = new Vector3(0.0f, 0.0f, 100.0f);
+        Vector3 cameraPosition = new Vector3(1000.0f, 100.0f, 0.0f);
         float leftrightRot = MathHelper.PiOver2;
         float updownRot = -MathHelper.Pi / 10.0f;
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 1000.0f;
         MouseState originalMouseState;
-        Matrix projection;
-        Matrix view;
         bool activated = false;
         Game1 game;
 
-        public NoClipCamera(Game1 game, GraphicsDevice graphicsDevice, Matrix projection, Matrix view)
+        public NoClipCamera(Game1 game)
         {
-            this.graphicsDevice = graphicsDevice;
-            this.projection = projection;
-            this.view = view;
             this.game = game;
-            Mouse.SetPosition(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
+            Mouse.SetPosition(game.GraphicsDevice.Viewport.Width / 2, game.GraphicsDevice.Viewport.Height / 2);
             originalMouseState = Mouse.GetState();
         }
 
         public void Activate()
         {
+            Mouse.SetPosition(game.GraphicsDevice.Viewport.Width / 2, game.GraphicsDevice.Viewport.Height / 2);
             activated = true;
         }
 
@@ -64,17 +59,17 @@ namespace SantaLand
                     float yDifference = currentMouseState.Y - originalMouseState.Y;
                     leftrightRot -= rotationSpeed * xDifference * elapsedTime;
                     updownRot -= rotationSpeed * yDifference * elapsedTime;
-                    Mouse.SetPosition(graphicsDevice.Viewport.Width / 2, graphicsDevice.Viewport.Height / 2);
+                    Mouse.SetPosition(game.GraphicsDevice.Viewport.Width / 2, game.GraphicsDevice.Viewport.Height / 2);
                 }
 
                 Vector3 moveVector = new Vector3(0, 0, 0);
-                if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
+                if (keyState.IsKeyDown(Keys.W))
                     moveVector += new Vector3(0, 0, -1);
-                if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
+                if (keyState.IsKeyDown(Keys.S))
                     moveVector += new Vector3(0, 0, 1);
-                if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
+                if (keyState.IsKeyDown(Keys.D))
                     moveVector += new Vector3(1, 0, 0);
-                if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
+                if (keyState.IsKeyDown(Keys.A))
                     moveVector += new Vector3(-1, 0, 0);
                 if (keyState.IsKeyDown(Keys.Space))
                     moveVector += new Vector3(0, 1, 0);
@@ -105,7 +100,7 @@ namespace SantaLand
             Vector3 cameraOriginalUpVector = new Vector3(0, 1, 0);
             Vector3 cameraRotatedUpVector = Vector3.Transform(cameraOriginalUpVector, cameraRotation);
 
-            float aspectRatio = graphicsDevice.DisplayMode.AspectRatio;
+            float aspectRatio = game.GraphicsDevice.DisplayMode.AspectRatio;
 
             Matrix.CreatePerspectiveFieldOfView(
                 MathHelper.PiOver4,

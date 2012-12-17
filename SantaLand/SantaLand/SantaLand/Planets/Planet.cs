@@ -15,7 +15,7 @@ namespace SantaLand
         protected float solarSpeed = 0.0001f;
         protected Quaternion solarRotation = Quaternion.Identity;
 
-        private float[,] heightData;
+        public float[,] heightData;
 
         public Planet(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
         {
@@ -77,6 +77,7 @@ namespace SantaLand
                     Vector3 xyz = new Vector3((float)Math.Cos((xMax - x) * Math.PI * 2.0f / xMax) * ringradius, (float)Math.Cos(y * Math.PI / yMax) * radius, (float)Math.Sin((xMax - x) * Math.PI * 2.0f / xMax) * ringradius);
 
                     vertices[x + y * planeWidth] = new VertexPositionNormalTexture(xyz, Vector3.Forward, new Vector2(((float)x / (planeWidth + 1)), (1f - (float)y / planeHeight)));
+
                 }
                 //Sew the edges together
                 vertices[planeWidth - 1 + y * planeWidth] = new VertexPositionNormalTexture(
@@ -84,6 +85,11 @@ namespace SantaLand
                     vertices[0 + y * planeWidth].Normal,
                     new Vector2(((float)planeWidth / (planeWidth)), (float)y / planeHeight));
             }
+        }
+
+        public float GetRadius()
+        {
+            return (360 / -MathHelper.PiOver2) * scale.X;
         }
 
         public override void Draw(BasicEffect effect, Matrix parentWorld)
@@ -111,6 +117,7 @@ namespace SantaLand
             foreach (GameObject child in children)
                 child.Draw(effect, objectWorld);
         }
+
     }
 
     static class PlanetHelper

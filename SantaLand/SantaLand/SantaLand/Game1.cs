@@ -29,6 +29,8 @@ namespace SantaLand
         Vector3 campos = new Vector3(0, 0, 100);
 
         NoClipCamera debugCam;
+        Camera camera;
+        Opportunity oppportunity;
 
         public Game1()
         {
@@ -53,9 +55,9 @@ namespace SantaLand
         /// </summary>
         protected override void Initialize()
         {
-            debugCam = new NoClipCamera(this, GraphicsDevice, projection, view);
+            debugCam = new NoClipCamera(this);
             debugCam.Activate();
-
+            camera = new Camera(this);
             CreateWorld();
 
             //view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
@@ -106,7 +108,8 @@ namespace SantaLand
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            ProcessInput(gameTime);
+            camera.UpdateViewMatrix(oppportunity);
             debugCam.ProcessInput(gameTime);
 
             campos = new Vector3(0, 0, campos.Z + 0.1f);
@@ -160,7 +163,33 @@ namespace SantaLand
             gameObjects.Add(earth);
 
             Mars mars = new Mars(GraphicsDevice, lightDirection);
-            gameObjects.Add(mars);    
+            gameObjects.Add(mars); 
+
+            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), mars);
+            gameObjects.Add(oppportunity);  
         }
+
+        public void ProcessInput(GameTime gameTime)
+        {
+            KeyboardState keyState = Keyboard.GetState();
+
+            //toggle noclip and fps
+            if (keyState.IsKeyDown(Keys.F1))
+            {
+                debugCam.Activate();
+                camera.Deactivate();
+            }
+            if (keyState.IsKeyDown(Keys.F2))
+            {
+                debugCam.Deactivate();
+                camera.Activate();
+            }
+            if (keyState.IsKeyDown(Keys.F3))
+                fpsCounter.ShowFPS = true;
+            if (keyState.IsKeyDown(Keys.F4))
+                fpsCounter.ShowFPS = false;
+        }
+
+        
     }
 }

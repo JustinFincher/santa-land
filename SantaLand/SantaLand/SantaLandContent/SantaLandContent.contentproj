@@ -51,6 +51,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\opportunity.fbx">
+      <Name>opportunity</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Textures\Planets\Earth\water_loop.jpg">
       <Name>water</Name>
       <Importer>TextureImporter</Importer>
