@@ -62,9 +62,6 @@ namespace SantaLand
 
             debugCam.UpdateViewMatrix();
 
-            foreach (GameObject go in gameObjects)
-                go.Initialize();
-
             base.Initialize();
         }
 
@@ -83,7 +80,10 @@ namespace SantaLand
 
             debugCam.UpdateViewMatrix();
             foreach (GameObject go in gameObjects)
-                go.LoadContent();
+                go.LoadContent(Content);
+
+            foreach (GameObject go in gameObjects)
+                go.Initialize();
         }
 
         /// <summary>
@@ -132,6 +132,7 @@ namespace SantaLand
             effect.World = Matrix.Identity;
             effect.LightingEnabled = true;
             effect.TextureEnabled = true;
+            effect.EnableDefaultLighting();
 
             foreach (GameObject go in gameObjects)
                 go.Draw(effect, effect.World);
@@ -141,7 +142,7 @@ namespace SantaLand
 
         void CreateWorld()
         {
-            Planet mars = new Planet(GraphicsDevice, Content.Load<Texture2D>("Textures/Planets/Mars/marsHeightmap"), Content.Load<Texture2D>("Textures/Planets/Mars/marsTextureHires"), lightDirection);
+            Mars mars = new Mars(GraphicsDevice, lightDirection);
             gameObjects.Add(mars);
         }
     }

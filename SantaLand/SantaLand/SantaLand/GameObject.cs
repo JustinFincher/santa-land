@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace SantaLand
 {
     abstract class GameObject
     {
-        public Vector3 position;
+        public Vector3 position = Vector3.Zero;
         public Quaternion rotation = Quaternion.Identity;
         public Vector3 scale = Vector3.One;
         public List<GameObject> children = new List<GameObject>();
@@ -30,9 +31,10 @@ namespace SantaLand
             
         }
 
-        public virtual void LoadContent()
+        public virtual void LoadContent(ContentManager Content)
         {
-
+            foreach (GameObject child in children)
+                child.LoadContent(Content);
         }
 
         public virtual void Update(GameTime gameTime)
@@ -49,10 +51,6 @@ namespace SantaLand
             effect.Texture = texture;
             graphicsDevice.SetVertexBuffer(vertexBuffer);
             graphicsDevice.Indices = indexBuffer;
-
-            //effect.Parameters["xEnableLighting"].SetValue(true);
-            //effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            //effect.Parameters["xAmbient"].SetValue(0.5f);
 
             if (vertices != null && indices != null)
             {
