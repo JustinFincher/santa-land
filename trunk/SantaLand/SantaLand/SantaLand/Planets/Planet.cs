@@ -12,7 +12,7 @@ namespace SantaLand
     {
         protected Texture2D heightMap;
         protected float rotationSpeed = 0.001f;
-        protected float solarSpeed = 0.01f;
+        protected float solarSpeed = 0.0001f;
         protected Quaternion solarRotation = Quaternion.Identity;
 
         private float[,] heightData;
@@ -93,11 +93,11 @@ namespace SantaLand
             effect.World = objectWorld * parentWorld;
             effect.Texture = texture;
 
-            effect.LightingEnabled = true;
-            effect.DirectionalLight0.DiffuseColor = new Vector3(0.01f, 0.01f, 0.01f);
-            effect.DirectionalLight0.Direction = new Vector3(1, 0, 0);
+            effect.LightingEnabled = true; 
+            effect.DirectionalLight0.DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f); 
+            effect.DirectionalLight0.Direction = new Vector3(1, 0, 0); 
             effect.AmbientLightColor = new Vector3(0.05f, 0.05f, 0.05f);
-            effect.EmissiveColor = new Vector3(5f, 5f, 5f);
+            effect.EmissiveColor = new Vector3(0.05f, 0.05f, 0.05f);
 
             graphicsDevice.SetVertexBuffer(vertexBuffer);
             graphicsDevice.Indices = indexBuffer;

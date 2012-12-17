@@ -144,6 +144,9 @@ namespace SantaLand
 
         void CreateWorld()
         {
+            Skydome skydome = new Skydome(GraphicsDevice, lightDirection);
+            gameObjects.Add(skydome);
+
             Sun sun = new Sun(GraphicsDevice, lightDirection);
             gameObjects.Add(sun);
 
