@@ -10,14 +10,18 @@ namespace SantaLand
 {
     class Water : Sphere
     {
-        private float waterSpeed = 0.0001f;
-        private float maxWaterLevel = 1.0005f;
-        private float minWaterLevel = 0.97f;
-        private float waterLevel = 0.99f;
+        public float WaterSpeed { get; set; }
+        public float MaxWaterLevel { get; set; }
+        public float MinWaterLevel { get; set; }
+        public float WaterLevel { get; set; }
 
         public Water(GraphicsDevice graphicsDevice, Vector3 lightDirection)
             : base(graphicsDevice, lightDirection)
         {
+            WaterSpeed = 0.0001f;
+            MaxWaterLevel = 1.0005f;
+            MinWaterLevel = 0.97f;
+            WaterLevel = 0.99f;
         }
 
         public override void LoadContent(ContentManager Content)
@@ -29,12 +33,12 @@ namespace SantaLand
 
         public override void Update(GameTime gameTime)
         {
-            if (waterLevel > maxWaterLevel || waterLevel < minWaterLevel) 
-                waterSpeed = -waterSpeed;
+            if (WaterLevel > MaxWaterLevel || WaterLevel < MinWaterLevel) 
+                WaterSpeed = -WaterSpeed;
 
-            waterLevel += waterSpeed;
+            WaterLevel += WaterSpeed;
 
-            scale = Vector3.One * waterLevel;
+            scale = Vector3.One * WaterLevel;
             
             base.Update(gameTime);
         }
