@@ -51,7 +51,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\water_loop.jpg">
+    <Compile Include="Textures\Planets\Earth\water_loop.jpg">
       <Name>water</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -88,6 +88,34 @@
   <ItemGroup>
     <Compile Include="Textures\Planets\Moon\moonTexture.png">
       <Name>moonTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\skymap.png">
+      <Name>skymap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Planets\Mercury\mercuryTexture.jpg">
+      <Name>mercuryTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Planets\Venus\venusTexture.jpg">
+      <Name>venusTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Planets\Earth\earth-clouds.png">
+      <Name>clouds</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

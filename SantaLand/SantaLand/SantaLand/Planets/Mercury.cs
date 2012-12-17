@@ -23,7 +23,7 @@ namespace SantaLand.Planets
         public override void LoadContent(ContentManager Content)
         {
             base.heightMap = Content.Load<Texture2D>("Textures/Planets/Mars/marsHeightmap");
-            base.texture = Content.Load<Texture2D>("Textures/Planets/Mars/marsTextureHires");
+            base.texture = Content.Load<Texture2D>("Textures/Planets/Mercury/MercuryTexture");
 
             base.LoadContent(Content);
         }
