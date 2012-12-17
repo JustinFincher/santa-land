@@ -14,9 +14,10 @@ namespace SantaLand
             : base(graphicsDevice, lightDirection)
         {
             position = new Vector3(1000, 0, 0);
-            scale = Vector3.One * 0.1f;
+            scale = Vector3.One * 0.053f;
+            solarSpeed *= 1.1f;
 
-            children.Add(new Water(graphicsDevice, lightDirection));
+            //children.Add(new Water(graphicsDevice, lightDirection));
         }
 
         public override void LoadContent(ContentManager Content)

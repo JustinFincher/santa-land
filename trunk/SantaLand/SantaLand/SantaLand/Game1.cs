@@ -131,9 +131,7 @@ namespace SantaLand
 
             effect.View = view;
             effect.World = Matrix.Identity;
-            effect.LightingEnabled = true;
             effect.TextureEnabled = true;
-            effect.EnableDefaultLighting();
 
             foreach (GameObject go in gameObjects)
             {
@@ -149,11 +147,17 @@ namespace SantaLand
             Sun sun = new Sun(GraphicsDevice, lightDirection);
             gameObjects.Add(sun);
 
+            Mercury mercury = new Mercury(GraphicsDevice, lightDirection);
+            gameObjects.Add(mercury);
+
+            Venus venus = new Venus(GraphicsDevice, lightDirection);
+            gameObjects.Add(venus); 
+
             Earth earth = new Earth(GraphicsDevice, lightDirection);
             gameObjects.Add(earth);
 
             Mars mars = new Mars(GraphicsDevice, lightDirection);
-            gameObjects.Add(mars);            
+            gameObjects.Add(mars);    
         }
     }
 }

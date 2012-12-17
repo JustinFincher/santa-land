@@ -18,7 +18,7 @@ namespace SantaLand
         public Water(GraphicsDevice graphicsDevice, Vector3 lightDirection)
             : base(graphicsDevice, lightDirection)
         {
-            WaterSpeed = 0.0001f;
+            WaterSpeed = 0.00001f;
             MaxWaterLevel = 1.0005f;
             MinWaterLevel = 0.97f;
             WaterLevel = 0.99f;
@@ -38,6 +38,7 @@ namespace SantaLand
 
             WaterLevel += WaterSpeed;
 
+            scale.Normalize();
             scale = Vector3.One * WaterLevel;
             
             base.Update(gameTime);

@@ -49,6 +49,13 @@ namespace SantaLand
             objectWorld = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
             effect.World = objectWorld * parentWorld;
             effect.Texture = texture;
+
+            effect.LightingEnabled = true; // turn on the lighting subsystem.
+            effect.DirectionalLight0.DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f); // a red light
+            effect.DirectionalLight0.Direction = new Vector3(1, 0, 0);  // coming along the x-axis
+            effect.AmbientLightColor = new Vector3(0.05f, 0.05f, 0.05f);
+            effect.EmissiveColor = new Vector3(0.05f, 0.05f, 0.05f);
+
             graphicsDevice.SetVertexBuffer(vertexBuffer);
             graphicsDevice.Indices = indexBuffer;
 

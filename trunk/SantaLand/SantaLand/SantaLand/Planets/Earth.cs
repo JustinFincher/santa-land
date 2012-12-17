@@ -17,15 +17,17 @@ namespace SantaLand.Planets
             scale = Vector3.One * 0.1f;
 
             Water water = new Water(graphicsDevice, lightDirection);
-            water.MinWaterLevel = 0.983f;
+            water.MinWaterLevel = 0.9818f;
+            water.MaxWaterLevel = 1.0001f;
 
             children.Add(water);
+            children.Add(new Moon(graphicsDevice, lightDirection));
         }
 
         public override void LoadContent(ContentManager Content)
         {
             base.heightMap = Content.Load<Texture2D>("Textures/Planets/Earth/earthHeightMap");
-            base.texture = Content.Load<Texture2D>("Textures/Planets/Earth/earthTexture");
+            base.texture = Content.Load<Texture2D>("Textures/Planets/Earth/earthTextureHires");
 
             base.LoadContent(Content);
         }
