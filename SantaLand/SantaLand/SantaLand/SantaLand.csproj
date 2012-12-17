@@ -75,11 +75,9 @@
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="Planets\Earth.cs" />
     <Compile Include="Planets\Mars.cs" />
-    <Compile Include="NakedSanta\GameObject.cs" />
-    <Compile Include="NakedSanta\Tile.cs" />
-    <Compile Include="NakedSanta\VertexPositionColorNormal.cs" />
     <Compile Include="NoClipCamera.cs" />
     <Compile Include="Planets\Mercury.cs" />
+    <Compile Include="Planets\Moon.cs" />
     <Compile Include="Planets\Planet.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Planets\Sun.cs" />

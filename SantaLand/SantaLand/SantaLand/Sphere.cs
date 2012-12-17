@@ -36,16 +36,16 @@ namespace SantaLand
             float xMax = planeWidth;
 
             vertices = new VertexPositionNormalTexture[planeWidth * planeHeight];
-            for (int y = 0; y < planeHeight; y++)
+            for (int y = planeHeight-1; y >= 0; y--)
             {
-                for (int x = 0; x < planeWidth - 1; x++)
+                for (int x = 0; x < planeWidth; x++)
                 {
                     float radius = 360 / -MathHelper.PiOver2;
 
                     float ringradius = radius * (float)Math.Sin(y * Math.PI / yMax);
                     Vector3 xyz = new Vector3((float)Math.Cos((xMax - x) * Math.PI * 2.0f / xMax) * ringradius, (float)Math.Cos(y * Math.PI / yMax) * radius, (float)Math.Sin((xMax - x) * Math.PI * 2.0f / xMax) * ringradius);
 
-                    vertices[x + y * planeWidth] = new VertexPositionNormalTexture(xyz, Vector3.Forward, new Vector2(((float)x / (planeWidth + 1)), (float)y / planeHeight));
+                    vertices[x + y * planeWidth] = new VertexPositionNormalTexture(xyz, Vector3.Forward, new Vector2(((float)x / (planeWidth + 1)), (1f - ((float)y / planeHeight))));
                 }
                 //Sew the edges together
                 vertices[planeWidth - 1 + y * planeWidth] = new VertexPositionNormalTexture(
