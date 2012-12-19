@@ -13,7 +13,7 @@ namespace SantaLand
         public Mars(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(orbiting.position.X + 20700 + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
+            distanceToPrimary = new Vector3(orbiting.position.X + 20700 + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
             scale = Vector3.One * 0.0000151f;
             solarSpeed *= 1.1f;
 

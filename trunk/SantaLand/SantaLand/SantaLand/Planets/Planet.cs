@@ -12,9 +12,11 @@ namespace SantaLand
     {
         protected Sphere orbiting;
         protected Texture2D heightMap;
-        protected float rotationSpeed = 0.001f;
-        protected float solarSpeed = 0.0001f;
-        protected Quaternion solarRotation = Quaternion.Identity;
+        protected float rotationSpeed = 0;
+        protected float solarSpeed = 0;
+        protected Vector3 distanceToPrimary = Vector3.Zero;
+        public Quaternion solarRotation = Quaternion.Identity;
+
 
         public float[,] heightData;
 
@@ -44,8 +46,21 @@ namespace SantaLand
         {
             rotation *= Quaternion.CreateFromAxisAngle(Vector3.Up, rotationSpeed);
             solarRotation *= Quaternion.CreateFromAxisAngle(Vector3.Up, solarSpeed);
+            CalculatePosition();
 
             base.Update(gameTime);
+        }
+
+        private void CalculatePosition()
+        {
+            Matrix positionMatrix = Matrix.Identity;
+
+            positionMatrix.Translation = distanceToPrimary;
+            positionMatrix =
+                positionMatrix *
+                Matrix.CreateFromQuaternion(solarRotation);
+
+            position = positionMatrix.Translation;
         }
 
         private void LoadHeightData()
@@ -91,7 +106,7 @@ namespace SantaLand
         public override void Draw(BasicEffect effect, Matrix parentWorld)
         {
             objectWorld = Matrix.Identity;
-            objectWorld = Matrix.CreateScale(scale * Game1.PLANET_SIZE_RATIO) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position) * Matrix.CreateFromQuaternion(solarRotation);
+            objectWorld = Matrix.CreateScale(scale * Game1.PLANET_SIZE_RATIO) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
             effect.World = objectWorld * parentWorld;
             effect.Texture = texture;
 
