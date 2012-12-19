@@ -13,13 +13,15 @@ namespace SantaLand.Planets
         public Sun(GraphicsDevice graphicsDevice) 
             : base(graphicsDevice)
         {
-            scale = Vector3.One * 13f;
-
             position = new Vector3(0, 0, 0);
+            scale = Vector3.One * Constants.SUN_SIZE;
         }
 
         public override void Update(GameTime gameTime)
         {
+            rotation *= Quaternion.CreateFromAxisAngle(Vector3.Forward, 0.00006f);
+            rotation *= Quaternion.CreateFromAxisAngle(Vector3.Up, 0.000002f);
+
             base.Update(gameTime);
         }
 

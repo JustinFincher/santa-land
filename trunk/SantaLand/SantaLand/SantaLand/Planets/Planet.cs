@@ -12,8 +12,8 @@ namespace SantaLand
     {
         protected Sphere orbiting;
         protected Texture2D heightMap;
-        protected float rotationSpeed = 0;
-        protected float solarSpeed = 0;
+        protected float rotationSpeed = 1;
+        protected float solarSpeed = 1;
         protected Vector3 distanceToPrimary = Vector3.Zero;
         public Quaternion solarRotation = Quaternion.Identity;
 
@@ -58,7 +58,8 @@ namespace SantaLand
             positionMatrix.Translation = distanceToPrimary;
             positionMatrix =
                 positionMatrix *
-                Matrix.CreateFromQuaternion(solarRotation);
+                Matrix.CreateFromQuaternion(solarRotation) * 
+                Matrix.CreateTranslation(orbiting.position);
 
             position = positionMatrix.Translation;
         }
@@ -85,7 +86,9 @@ namespace SantaLand
             vertices = new VertexPositionNormalTexture[planeWidth * planeHeight];
             for (int y = 0; y < planeHeight; y++)
             {
-                for (int x = 0; x < planeWidth-1; x++)
+                int x;
+
+                for (x = 0; x < planeWidth-1; x++)
                 {
                     float radius = heightData[x, y] / -MathHelper.PiOver2;
 
@@ -99,36 +102,9 @@ namespace SantaLand
                 vertices[planeWidth - 1 + y * planeWidth] = new VertexPositionNormalTexture(
                     vertices[0 + y * planeWidth].Position,
                     vertices[0 + y * planeWidth].Normal,
-                    new Vector2(((float)planeWidth / (planeWidth)), (float)y / planeHeight));
+                    new Vector2(1, (1f - (float)y / planeHeight)));
             }
         }
-
-        public override void Draw(BasicEffect effect, Matrix parentWorld)
-        {
-            objectWorld = Matrix.Identity;
-            objectWorld = Matrix.CreateScale(scale * Game1.PLANET_SIZE_RATIO) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
-            effect.World = objectWorld * parentWorld;
-            effect.Texture = texture;
-
-            effect.LightingEnabled = true; 
-            effect.DirectionalLight0.DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f); 
-            effect.DirectionalLight0.Direction = new Vector3(1, 0, 0); 
-            effect.AmbientLightColor = new Vector3(0.05f, 0.05f, 0.05f);
-            effect.EmissiveColor = new Vector3(0.05f, 0.05f, 0.05f);
-
-            graphicsDevice.SetVertexBuffer(vertexBuffer);
-            graphicsDevice.Indices = indexBuffer;
-
-            if (vertices != null && indices != null)
-            {
-                effect.CurrentTechnique.Passes[0].Apply();
-                graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertices.Length, 0, indices.Length / 3);
-            }
-
-            foreach (GameObject child in children)
-                child.Draw(effect, objectWorld);
-        }
-
     }
 
     static class PlanetHelper

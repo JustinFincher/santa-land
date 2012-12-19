@@ -13,9 +13,9 @@ namespace SantaLand
         float cameraDelaySpeed = 0;
         Vector3 thirdPersonReference = new Vector3(100, 0, 0);
         bool activated = false;
-        Game1 game;
+        SantaLand game;
 
-        public Camera(Game1 game)
+        public Camera(SantaLand game)
         {
             this.game = game;
         }

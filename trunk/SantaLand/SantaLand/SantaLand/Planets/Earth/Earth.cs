@@ -13,17 +13,17 @@ namespace SantaLand.Planets
         public Earth(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
-            distanceToPrimary = new Vector3(14966.918f, 0, 0);
-            scale = Vector3.One * 0.0001f;
+            distanceToPrimary = new Vector3(orbiting.position.X + Constants.EARTH_DISTANCE_FROM_SUN + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
+            scale = Vector3.One * Constants.PLANET_SIZE_RATIO;
 
-            rotationSpeed = solarSpeed * 365.25f;
+            solarSpeed = Constants.EARTH_SOLAR_SPEED;
+            rotationSpeed = solarSpeed * Constants.EARTH_NUMBER_OF_EARTH_DAYS_TO_ORBIT;
 
             Water water = new Water(graphicsDevice);
             water.MinWaterLevel = 0.9818f;
             water.MaxWaterLevel = 1.0001f;
 
-            children.Add(water);
-            children.Add(new Moon(graphicsDevice, this));
+            //children.Add(water);
             children.Add(new Clouds(graphicsDevice));
         }
 
@@ -33,6 +33,14 @@ namespace SantaLand.Planets
             base.texture = Content.Load<Texture2D>("Textures/Planets/Earth/earthTextureHires");
 
             base.LoadContent(Content);
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            foreach (GameObject child in children)
+                child.UpdateLightDirection(position);
+            
+            base.Update(gameTime);
         }
     }
 }

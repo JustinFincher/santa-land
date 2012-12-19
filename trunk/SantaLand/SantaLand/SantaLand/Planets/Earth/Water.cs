@@ -18,7 +18,7 @@ namespace SantaLand.Planets
         public Water(GraphicsDevice graphicsDevice)
             : base(graphicsDevice)
         {
-            WaterSpeed = 0.00001f;
+            WaterSpeed = 0.0001f;
             MaxWaterLevel = 1.0005f;
             MinWaterLevel = 0.97f;
             WaterLevel = 0.99f;
