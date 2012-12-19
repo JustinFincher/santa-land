@@ -13,7 +13,7 @@ namespace SantaLand
         {
             get
             {
-                return (360 / -MathHelper.PiOver2) * scale.X;
+                return (360 / MathHelper.PiOver2) * scale.X;
             }
         }
 
@@ -45,7 +45,9 @@ namespace SantaLand
             vertices = new VertexPositionNormalTexture[planeWidth * planeHeight];
             for (int y = planeHeight-1; y >= 0; y--)
             {
-                for (int x = 0; x < planeWidth; x++)
+                int x;
+
+                for (x = 0; x < planeWidth; x++)
                 {
                     float radius = 360 / -MathHelper.PiOver2;
 
@@ -58,7 +60,7 @@ namespace SantaLand
                 vertices[planeWidth - 1 + y * planeWidth] = new VertexPositionNormalTexture(
                     vertices[0 + y * planeWidth].Position,
                     vertices[0 + y * planeWidth].Normal,
-                    new Vector2(((float)planeWidth / (planeWidth)), (float)y / planeHeight));
+                    new Vector2(1, (1f - (float)y / planeHeight)));
             }
         }
 

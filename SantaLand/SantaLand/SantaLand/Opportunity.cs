@@ -8,7 +8,7 @@ namespace SantaLand
 {
     class Opportunity : Vehicle
     {
-        public Opportunity(Game1 game, Model model, Planet planet) 
+        public Opportunity(SantaLand game, Model model, Planet planet) 
             : base (game, model, planet)
         {
 

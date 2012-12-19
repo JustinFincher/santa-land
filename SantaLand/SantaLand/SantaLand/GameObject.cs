@@ -24,6 +24,8 @@ namespace SantaLand
         protected int[] indices;
         protected Texture2D texture;
 
+        protected Vector3? lightDirection = null;
+
         public virtual void Initialize()
         {
             
@@ -35,6 +37,11 @@ namespace SantaLand
                 child.LoadContent(Content);
         }
 
+        public void UpdateLightDirection(Vector3 lightDirection)
+        {
+            this.lightDirection = lightDirection;
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             foreach (GameObject child in children)
@@ -44,13 +51,13 @@ namespace SantaLand
         public virtual void Draw(BasicEffect effect, Matrix parentWorld)
         {
             objectWorld = Matrix.Identity;
-            objectWorld = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
+            objectWorld *= Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position);
             effect.World = objectWorld * parentWorld;
             effect.Texture = texture;
 
             effect.LightingEnabled = true; // turn on the lighting subsystem.
-            effect.DirectionalLight0.DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f); // a red light
-            effect.DirectionalLight0.Direction = new Vector3(1, 0, 0);  // coming along the x-axis
+            effect.DirectionalLight0.DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f);
+            effect.DirectionalLight0.Direction = lightDirection ?? Vector3.Normalize(position);  // coming along the x-axis
             effect.AmbientLightColor = new Vector3(0.05f, 0.05f, 0.05f);
             effect.EmissiveColor = new Vector3(0.05f, 0.05f, 0.05f);
 

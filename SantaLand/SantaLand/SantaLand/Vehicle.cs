@@ -11,7 +11,7 @@ namespace SantaLand
     class Vehicle : GameObject
     {
         protected Model model;
-        protected Game1 game;
+        protected SantaLand game;
 
         private float speed = 1;
         private Planet planet;
@@ -19,7 +19,7 @@ namespace SantaLand
         private float longitude = 0;
         private float latitude = 0;
 
-        public Vehicle(Game1 game, Model model, Planet planet)
+        public Vehicle(SantaLand game, Model model, Planet planet)
         {
             this.model = model;
             this.game = game;
@@ -83,9 +83,9 @@ namespace SantaLand
         {
             float LAT = latitude * (float)Math.PI / 180;
             float LON = longitude * (float)Math.PI / 180;
-            planetaryPosition.X = -planet.Radius * Game1.PLANET_SIZE_RATIO * (float)Math.Cos(LAT) * (float)Math.Cos(LON);
-            planetaryPosition.Y = planet.Radius * Game1.PLANET_SIZE_RATIO * (float)Math.Sin(LAT);
-            planetaryPosition.Z = planet.Radius * Game1.PLANET_SIZE_RATIO * (float)Math.Cos(LAT) * (float)Math.Sin(LON);
+            planetaryPosition.X = -planet.Radius * (float)Math.Cos(LAT) * (float)Math.Cos(LON);
+            planetaryPosition.Y = planet.Radius * (float)Math.Sin(LAT);
+            planetaryPosition.Z = planet.Radius * (float)Math.Cos(LAT) * (float)Math.Sin(LON);
         }
 
         private void CalculateRotation()
