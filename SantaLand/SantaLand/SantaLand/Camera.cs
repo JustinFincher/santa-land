@@ -11,7 +11,7 @@ namespace SantaLand
     {
         Quaternion cameraRotation = Quaternion.Identity;
         float cameraDelaySpeed = 0;
-        Vector3 thirdPersonReference = new Vector3(10, 0, 0);
+        Vector3 thirdPersonReference = new Vector3(100, 0, 0);
         bool activated = false;
         Game1 game;
 
@@ -38,7 +38,7 @@ namespace SantaLand
                 // Create a vector pointing the direction the camera is facing.
                 Vector3 transformedReference = Vector3.Transform(thirdPersonReference, cameraRotation);
                 // Calculate the position the camera is looking from.
-                Vector3 cameraPosition = transformedReference + cameraTarget.GetWorldPos();
+                Vector3 cameraPosition = transformedReference + cameraTarget.position;
 
                 float aspectRatio = game.GraphicsDevice.DisplayMode.AspectRatio;
 
@@ -49,7 +49,7 @@ namespace SantaLand
                     100000.0f,
                     out game.projection);
 
-                game.view = Matrix.CreateLookAt(cameraPosition, cameraTarget.GetWorldPos(), Matrix.CreateFromQuaternion(cameraTarget.rotation).Up);
+                game.view = Matrix.CreateLookAt(cameraPosition, cameraTarget.position, Matrix.CreateFromQuaternion(cameraTarget.rotation).Up);
             }
         }
     }

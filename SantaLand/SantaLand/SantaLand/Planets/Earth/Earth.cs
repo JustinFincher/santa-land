@@ -13,7 +13,7 @@ namespace SantaLand.Planets
         public Earth(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(14966.918f, 0, 0);
+            distanceToPrimary = new Vector3(14966.918f, 0, 0);
             scale = Vector3.One * 0.0001f;
 
             rotationSpeed = solarSpeed * 365.25f;

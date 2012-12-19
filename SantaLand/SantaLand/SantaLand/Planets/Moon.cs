@@ -13,7 +13,7 @@ namespace SantaLand.Planets
         public Moon(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(0, 0, 356400 + orbiting.Radius);
+            distanceToPrimary = new Vector3(0, 0, 356400 + orbiting.Radius);
             scale = Vector3.One * 0.02f;
         }
 

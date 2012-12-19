@@ -13,7 +13,7 @@ namespace SantaLand.Planets
         public Mercury(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(orbiting.position.X + 5791 + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
+            distanceToPrimary = new Vector3(orbiting.position.X + 5791 + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
             scale = Vector3.One * 0.0000056f;
             solarSpeed *= 0.4f;
 

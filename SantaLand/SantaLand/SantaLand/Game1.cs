@@ -28,8 +28,6 @@ namespace SantaLand
 
         Vector3 lightDirection;
 
-        Vector3 campos = new Vector3(0, 0, 100);
-
         NoClipCamera debugCam;
         Camera camera;
         Opportunity oppportunity;
@@ -114,7 +112,6 @@ namespace SantaLand
             camera.UpdateViewMatrix(oppportunity);
             debugCam.ProcessInput(gameTime);
 
-            campos = new Vector3(0, 0, campos.Z + 0.1f);
             //view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
             foreach (GameObject go in gameObjects)
                 go.Update(gameTime);
@@ -167,7 +164,7 @@ namespace SantaLand
             Mars mars = new Mars(GraphicsDevice, sun);
             gameObjects.Add(mars); 
 
-            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), mars);
+            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), earth);
             gameObjects.Add(oppportunity);  
         }
 
