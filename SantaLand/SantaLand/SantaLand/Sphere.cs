@@ -9,15 +9,22 @@ namespace SantaLand
 {
     class Sphere : GameObject
     {
+        public float Radius
+        {
+            get
+            {
+                return (360 / -MathHelper.PiOver2) * scale.X;
+            }
+        }
+
         protected int planeWidth = 1024;
         protected int planeHeight = 512;
 
         protected Sphere() {}
 
-        public Sphere(GraphicsDevice graphicsDevice, Vector3 lightDirection)
+        public Sphere(GraphicsDevice graphicsDevice)
         {
             base.graphicsDevice = graphicsDevice;
-            base.lightDirection = lightDirection;
 
             InitializeVertices();
             InitializeIndices();

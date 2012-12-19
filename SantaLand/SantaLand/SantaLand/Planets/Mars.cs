@@ -10,11 +10,11 @@ namespace SantaLand
 {
     class Mars : Planet
     {
-        public Mars(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
-            : base(graphicsDevice, lightDirection)
+        public Mars(GraphicsDevice graphicsDevice, Sphere orbiting) 
+            : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(1000, 0, 0);
-            scale = Vector3.One * 0.053f;
+            position = new Vector3(20700 + orbiting.Radius, 0, 0);
+            scale = Vector3.One * 0.0000151f;
             solarSpeed *= 1.1f;
 
             //children.Add(new Water(graphicsDevice, lightDirection));

@@ -15,8 +15,8 @@ namespace SantaLand.Planets
         public float MinWaterLevel { get; set; }
         public float WaterLevel { get; set; }
 
-        public Water(GraphicsDevice graphicsDevice, Vector3 lightDirection)
-            : base(graphicsDevice, lightDirection)
+        public Water(GraphicsDevice graphicsDevice)
+            : base(graphicsDevice)
         {
             WaterSpeed = 0.00001f;
             MaxWaterLevel = 1.0005f;

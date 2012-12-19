@@ -10,12 +10,12 @@ namespace SantaLand
 {
     class Skydome : Sphere
     {
-        public Skydome(GraphicsDevice graphicsDevice, Vector3 lightDirection)
-            : base(graphicsDevice, lightDirection)
+        public Skydome(GraphicsDevice graphicsDevice)
+            : base(graphicsDevice)
         {
             planeHeight = 10;
             planeWidth = 20;
-            scale *= 300f;
+            scale *= 3000f;
         }
 
         public override void LoadContent(ContentManager Content)

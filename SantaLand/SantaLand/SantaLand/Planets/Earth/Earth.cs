@@ -10,19 +10,21 @@ namespace SantaLand.Planets
 {
     class Earth : Planet
     {
-        public Earth(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
-            : base(graphicsDevice, lightDirection)
+        public Earth(GraphicsDevice graphicsDevice, Sphere orbiting) 
+            : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(700, 0, 0);
-            scale = Vector3.One * 0.1f;
+            position = new Vector3(14966.918f, 0, 0);
+            scale = Vector3.One * 0.0001f;
 
-            Water water = new Water(graphicsDevice, lightDirection);
+            rotationSpeed = solarSpeed * 365.25f;
+
+            Water water = new Water(graphicsDevice);
             water.MinWaterLevel = 0.9818f;
             water.MaxWaterLevel = 1.0001f;
 
             children.Add(water);
-            children.Add(new Moon(graphicsDevice, lightDirection));
-            children.Add(new Clouds(graphicsDevice, lightDirection));
+            children.Add(new Moon(graphicsDevice, this));
+            children.Add(new Clouds(graphicsDevice));
         }
 
         public override void LoadContent(ContentManager Content)

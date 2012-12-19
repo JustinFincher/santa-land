@@ -10,11 +10,11 @@ namespace SantaLand.Planets
 {
     class Venus : Planet
     {
-        public Venus(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
-            : base(graphicsDevice, lightDirection)
+        public Venus(GraphicsDevice graphicsDevice, Sphere orbiting) 
+            : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(500, 0, 0);
-            scale = Vector3.One * 0.06f;
+            position = new Vector3(10800 + orbiting.Radius, 0, 0);
+            scale = Vector3.One * 0.0000866f;
             solarSpeed *= 0.1f;
 
             //children.Add(new Water(graphicsDevice, lightDirection));

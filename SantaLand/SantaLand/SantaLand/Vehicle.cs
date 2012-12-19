@@ -33,9 +33,9 @@ namespace SantaLand
 
             float LAT = latitude * (float)Math.PI/180;
             float LON = longitude * (float)Math.PI/180;
-            position.X = -planet.GetRadius() * (float)Math.Cos(LAT) * (float)Math.Cos(LON);
-            position.Y = planet.GetRadius() * (float)Math.Sin(LAT);
-            position.Z = planet.GetRadius() * (float)Math.Cos(LAT) * (float)Math.Sin(LON);
+            position.X = -planet.Radius * (float)Math.Cos(LAT) * (float)Math.Cos(LON);
+            position.Y = planet.Radius * (float)Math.Sin(LAT);
+            position.Z = planet.Radius * (float)Math.Cos(LAT) * (float)Math.Sin(LON);
             
             Vector3 pointTo = Vector3.Normalize(Vector3.Zero - position);
             Vector3 rotAxis = Vector3.Cross(Matrix.Identity.Down, pointTo);

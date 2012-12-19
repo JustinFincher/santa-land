@@ -17,6 +17,8 @@ namespace SantaLand
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        public const float PLANET_SIZE_RATIO = 10000.0f; //Defines how much bigger the planets are.
+
         GraphicsDeviceManager graphics;
         BasicEffect effect;
         List<GameObject> gameObjects;
@@ -147,22 +149,22 @@ namespace SantaLand
 
         void CreateWorld()
         {
-            Skydome skydome = new Skydome(GraphicsDevice, lightDirection);
+            Skydome skydome = new Skydome(GraphicsDevice);
             gameObjects.Add(skydome);
 
-            Sun sun = new Sun(GraphicsDevice, lightDirection);
+            Sun sun = new Sun(GraphicsDevice);
             gameObjects.Add(sun);
 
-            Mercury mercury = new Mercury(GraphicsDevice, lightDirection);
+            Mercury mercury = new Mercury(GraphicsDevice, sun);
             gameObjects.Add(mercury);
 
-            Venus venus = new Venus(GraphicsDevice, lightDirection);
+            Venus venus = new Venus(GraphicsDevice, sun);
             gameObjects.Add(venus); 
 
-            Earth earth = new Earth(GraphicsDevice, lightDirection);
+            Earth earth = new Earth(GraphicsDevice, sun);
             gameObjects.Add(earth);
 
-            Mars mars = new Mars(GraphicsDevice, lightDirection);
+            Mars mars = new Mars(GraphicsDevice, sun);
             gameObjects.Add(mars); 
 
             oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), mars);
