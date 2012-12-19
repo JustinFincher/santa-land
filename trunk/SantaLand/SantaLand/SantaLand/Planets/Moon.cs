@@ -10,11 +10,11 @@ namespace SantaLand.Planets
 {
     class Moon : Planet
     {
-        public Moon(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
-            : base(graphicsDevice, lightDirection)
+        public Moon(GraphicsDevice graphicsDevice, Sphere orbiting) 
+            : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(0, 0, 500);
-            scale = Vector3.One * 0.1f;
+            position = new Vector3(0, 0, 356400 + orbiting.Radius);
+            scale = Vector3.One * 0.02f;
         }
 
         public override void Update(GameTime gameTime)

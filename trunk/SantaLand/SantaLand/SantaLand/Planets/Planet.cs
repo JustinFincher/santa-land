@@ -10,6 +10,7 @@ namespace SantaLand
 {
     class Planet : Sphere
     {
+        protected Sphere orbiting;
         protected Texture2D heightMap;
         protected float rotationSpeed = 0.001f;
         protected float solarSpeed = 0.0001f;
@@ -17,10 +18,10 @@ namespace SantaLand
 
         public float[,] heightData;
 
-        public Planet(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
+        public Planet(GraphicsDevice graphicsDevice, Sphere orbiting) 
         {
             base.graphicsDevice = graphicsDevice;
-            base.lightDirection = lightDirection;
+            this.orbiting = orbiting;
         }
 
         public override void Initialize()
@@ -87,15 +88,10 @@ namespace SantaLand
             }
         }
 
-        public float GetRadius()
-        {
-            return (360 / -MathHelper.PiOver2) * scale.X;
-        }
-
         public override void Draw(BasicEffect effect, Matrix parentWorld)
         {
             objectWorld = Matrix.Identity;
-            objectWorld = Matrix.CreateScale(scale) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position) * Matrix.CreateFromQuaternion(solarRotation);
+            objectWorld = Matrix.CreateScale(scale * Game1.PLANET_SIZE_RATIO) * Matrix.CreateFromQuaternion(rotation) * Matrix.CreateTranslation(position) * Matrix.CreateFromQuaternion(solarRotation);
             effect.World = objectWorld * parentWorld;
             effect.Texture = texture;
 

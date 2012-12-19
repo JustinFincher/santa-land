@@ -14,7 +14,8 @@ namespace SantaLand
         float leftrightRot = MathHelper.PiOver2;
         float updownRot = -MathHelper.Pi / 10.0f;
         const float rotationSpeed = 0.3f;
-        const float moveSpeed = 1000.0f;
+        const float moveSpeed = 10000.0f;
+        const float drawingDistance = 10000000.0f;
         MouseState originalMouseState;
         bool activated = false;
         Game1 game;
@@ -106,7 +107,7 @@ namespace SantaLand
                 MathHelper.PiOver4,
                 aspectRatio,
                 0.1f,
-                100000.0f,
+                drawingDistance,
                 out game.projection);
 
             game.view = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, cameraRotatedUpVector);

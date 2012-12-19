@@ -24,8 +24,6 @@ namespace SantaLand
         protected int[] indices;
         protected Texture2D texture;
 
-        protected Vector3 lightDirection;
-
         public virtual void Initialize()
         {
             

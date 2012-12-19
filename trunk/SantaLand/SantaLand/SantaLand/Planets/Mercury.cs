@@ -10,11 +10,11 @@ namespace SantaLand.Planets
 {
     class Mercury : Planet
     {
-        public Mercury(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
-            : base(graphicsDevice, lightDirection)
+        public Mercury(GraphicsDevice graphicsDevice, Sphere orbiting) 
+            : base(graphicsDevice, orbiting)
         {
-            position = new Vector3(300, 0, 0);
-            scale = Vector3.One * 0.01f;
+            position = new Vector3(5791 + orbiting.Radius, 0, 0);
+            scale = Vector3.One * 0.0000056f;
             solarSpeed *= 0.4f;
 
             //children.Add(new Water(graphicsDevice, lightDirection));

@@ -10,8 +10,8 @@ namespace SantaLand.Planets
 {
     class Clouds : Sphere
     {
-        public Clouds(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
-            : base(graphicsDevice, lightDirection)
+        public Clouds(GraphicsDevice graphicsDevice) 
+            : base(graphicsDevice)
         {
             position = new Vector3(0, 0, 0);
             scale = Vector3.One * 1.01f;

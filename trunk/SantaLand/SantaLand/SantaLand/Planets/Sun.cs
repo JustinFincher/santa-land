@@ -10,9 +10,11 @@ namespace SantaLand.Planets
 {
     class Sun : Sphere
     {
-        public Sun(GraphicsDevice graphicsDevice, Vector3 lightDirection) 
-            : base(graphicsDevice, lightDirection)
+        public Sun(GraphicsDevice graphicsDevice) 
+            : base(graphicsDevice)
         {
+            scale = Vector3.One * 13f;
+
             position = new Vector3(0, 0, 0);
         }
 
