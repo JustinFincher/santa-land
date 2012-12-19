@@ -164,7 +164,7 @@ namespace SantaLand
             Mars mars = new Mars(GraphicsDevice, sun);
             gameObjects.Add(mars); 
 
-            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), earth);
+            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), mercury);
             gameObjects.Add(oppportunity);  
         }
 

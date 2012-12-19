@@ -13,11 +13,14 @@ namespace SantaLand
         protected Model model;
         protected SantaLand game;
 
-        private float speed = 1;
+        private float speed = 0.02f;
+        private float turnSpeed = 0.02f;
         private Planet planet;
         private Vector3 planetaryPosition = Vector3.Zero;
         private float longitude = 0;
         private float latitude = 0;
+        float yaw = 0;
+        float pitch = 0;
 
         public Vehicle(SantaLand game, Model model, Planet planet)
         {
@@ -25,7 +28,6 @@ namespace SantaLand
             this.game = game;
             this.planet = planet;
             scale = Vector3.One * 3f;
-            float driveDirection = 0;
         }
 
         public override void Update(GameTime gameTime)
@@ -33,7 +35,7 @@ namespace SantaLand
             ProcessInput(gameTime);
 
             CalculatePosition();
-            CalculateRotation();
+            //CalculateRotation();
 
             base.Update(gameTime);
         }
@@ -43,13 +45,23 @@ namespace SantaLand
             KeyboardState keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.Up))
-                latitude -= speed;
+                pitch += speed;
             if (keyState.IsKeyDown(Keys.Down))
-                latitude += speed;
-            if (keyState.IsKeyDown(Keys.Left))
+                pitch -= speed;
+
+            if (keyState.IsKeyDown(Keys.Q))
                 longitude -= speed;
-            if (keyState.IsKeyDown(Keys.Right))
+            if (keyState.IsKeyDown(Keys.E))
                 longitude += speed;
+
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                yaw += turnSpeed;
+            }
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+                yaw -= turnSpeed;
+            }
         }
 
         public override void Draw(BasicEffect basicEffect, Matrix parentWorld)
@@ -81,6 +93,15 @@ namespace SantaLand
 
         private void CalculatePlanetaryPosition()
         {
+            if (latitude > 89)
+                latitude = 89;
+            else if (latitude < -89)
+                latitude = -89;
+            if (longitude > 180)
+                longitude = -180;
+            else if (longitude < -180)
+                longitude = 180;
+
             float LAT = latitude * (float)Math.PI / 180;
             float LON = longitude * (float)Math.PI / 180;
             planetaryPosition.X = -planet.Radius * (float)Math.Cos(LAT) * (float)Math.Cos(LON);
@@ -88,30 +109,41 @@ namespace SantaLand
             planetaryPosition.Z = planet.Radius * (float)Math.Cos(LAT) * (float)Math.Sin(LON);
         }
 
-        private void CalculateRotation()
-        {
-            Vector3 pointTo = Vector3.Normalize(planet.position - position);
-            Vector3 rotAxis = Vector3.Cross(Matrix.Identity.Down, pointTo);
-            pointTo.Normalize();
-            rotAxis.Normalize();
-            float rotAngle = (float)Math.Acos(Vector3.Dot(Matrix.Identity.Down, pointTo));
-            rotation = Quaternion.CreateFromAxisAngle(rotAxis, rotAngle);
+        //private void CalculateRotation()
+        //{
+        //    Vector3 pointTo = Vector3.Normalize(planet.position - position);
+        //    Vector3 rotAxis = Vector3.Cross(Matrix.Identity.Down, pointTo);
+        //    pointTo.Normalize();
+        //    rotAxis.Normalize();
+        //    float rotAngle = (float)Math.Acos(Vector3.Dot(Matrix.Identity.Down, pointTo));
+        //    rotation = Quaternion.CreateFromAxisAngle(rotAxis, rotAngle);
 
-            rotation *= Quaternion.CreateFromRotationMatrix(Matrix.CreateFromAxisAngle(Matrix.CreateFromQuaternion(rotation).Left, (float)Math.PI));
-        }
+        //    rotation = Quaternion.CreateFromAxisAngle(pointTo, driveDirection) * rotation;
+        //}
 
         private void CalculatePosition()
         {
-            Matrix positionMatrix = Matrix.Identity;
-            CalculatePlanetaryPosition();
+            //Matrix positionMatrix = Matrix.Identity;
+            //CalculatePlanetaryPosition();
 
-            positionMatrix.Translation = planetaryPosition;
-            positionMatrix = 
-                positionMatrix * 
-                Matrix.CreateFromQuaternion(planet.rotation) * 
+            //positionMatrix.Translation = planetaryPosition;
+            //positionMatrix = 
+            //    positionMatrix * 
+            //    Matrix.CreateFromQuaternion(planet.rotation) * 
+            //    Matrix.CreateTranslation(planet.position);
+
+            //position = positionMatrix.Translation;
+
+            Matrix ultimatePosition = Matrix.Identity;
+            ultimatePosition =
+                Matrix.CreateTranslation(new Vector3(0, planet.Radius, 0)) *
+                Matrix.CreateFromYawPitchRoll(yaw, pitch, 0) *
+                Matrix.CreateFromQuaternion(planet.rotation) *
                 Matrix.CreateTranslation(planet.position);
 
-            position = positionMatrix.Translation;
+
+            position = ultimatePosition.Translation;
+            rotation = Quaternion.CreateFromRotationMatrix(ultimatePosition);
         }
     }
 }
