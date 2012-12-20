@@ -17,8 +17,8 @@ namespace SantaLand
             }
         }
 
-        protected int planeWidth = 1024;
-        protected int planeHeight = 512;
+        public int planeWidth = 1024;
+        public int planeHeight = 512;
 
         protected Sphere() {}
 

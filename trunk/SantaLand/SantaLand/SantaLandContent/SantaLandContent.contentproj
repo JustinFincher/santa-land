@@ -72,13 +72,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Planets\Earth\earthHeightMap.png">
-      <Name>earthHeightMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Textures\Planets\Earth\earthTexture.png">
       <Name>earthTexture</Name>
       <Importer>TextureImporter</Importer>
@@ -142,6 +135,13 @@
     </Compile>
     <Compile Include="Textures\Planets\Sun\sun-clouds-red.png">
       <Name>sun-clouds-red</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Planets\Earth\earthHeightMap.jpg">
+      <Name>earthHeightMap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -24,11 +24,12 @@ namespace SantaLand
         public Matrix view;
         public Matrix projection;
 
-        Vector3 campos = new Vector3(0, 0, 100);
+        Vector3 campos = new Vector3(0, 0, 20);
 
         NoClipCamera debugCam;
         Camera camera;
         Opportunity oppportunity;
+        List<Planet> planetList = new List<Planet>();
 
         public SantaLand()
         {
@@ -62,7 +63,6 @@ namespace SantaLand
             //projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 4.0f / 3.0f, 1, 500);
 
             debugCam.UpdateViewMatrix();
-
             base.Initialize();
         }
 
@@ -163,13 +163,26 @@ namespace SantaLand
             Mars mars = new Mars(GraphicsDevice, sun);
             gameObjects.Add(mars); 
 
-            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), mercury);
-            gameObjects.Add(oppportunity);  
+            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), earth);
+            gameObjects.Add(oppportunity);
+
+            //adding planets to list
+            planetList.Add(mercury);
+            planetList.Add(venus);
+            planetList.Add(earth);
+            planetList.Add(moon);
+            planetList.Add(mars);
         }
 
         public void ProcessInput(GameTime gameTime)
         {
             KeyboardState keyState = Keyboard.GetState();
+            MouseState mouse = Mouse.GetState();
+
+            if (keyState.IsKeyDown(Keys.Escape))
+                this.Exit();
+
+            camera.CameraDistance = -mouse.ScrollWheelValue * 0.1f;
 
             //toggle noclip and fps
             if (keyState.IsKeyDown(Keys.F1))
@@ -186,6 +199,10 @@ namespace SantaLand
                 fpsCounter.ShowFPS = true;
             if (keyState.IsKeyDown(Keys.F4))
                 fpsCounter.ShowFPS = false;
+
+            //if (keyState.IsKeyDown(Keys.PageUp))
+            //    if(nextPlanet < planetList)
+            //    oppportunity.planet = planetList[0];
         }
 
         
