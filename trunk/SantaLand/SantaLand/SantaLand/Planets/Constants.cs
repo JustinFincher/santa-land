@@ -10,7 +10,7 @@ namespace SantaLand.Planets
         public const float EARTH_SOLAR_SPEED = 0.00001f; //Determine how fast the solar system rotates.
 
         public const float PLANET_SIZE_RATIO = 10.0f; //Defines how much bigger the planets are.
-        public const float PLANET_DISTANCE_RATIO = 0.00015f;
+        public const float PLANET_DISTANCE_RATIO = 0.0005f;
         public const float SUN_SIZE_RATIO = PLANET_DISTANCE_RATIO;
         public const float SUN_SIZE = 1300000f * SUN_SIZE_RATIO;
 
@@ -24,6 +24,7 @@ namespace SantaLand.Planets
         public const float VENUS_DISTANCE_FROM_SUN = 107477000f * PLANET_DISTANCE_RATIO;
         public const float MARS_DISTANCE_FROM_SUN = 206669000f * PLANET_DISTANCE_RATIO;
         public const float MOON_DISTANCE_FROM_EARTH = 405410f * PLANET_DISTANCE_RATIO;
+        public const float ASTEROID_BELT_DISTANCE_FROM_SUN = 226669000 * PLANET_DISTANCE_RATIO;
 
         public const float MERCURY_NUMBER_OF_EARTH_DAYS_TO_ORBIT = 88f;
         public const float VENUS_NUMBER_OF_EARTH_DAYS_TO_ORBIT = 224.7f;
@@ -36,6 +37,5 @@ namespace SantaLand.Planets
         public const float MERCURY_NUMBER_OF_SPINS_PER_ORBIT = 9f / 6f;
         public const float VENUS_NUMBER_OF_SPINS_PER_ORBIT = -1.5f;
         public const float MOON_NUMBER_OF_SPINS_PER_ORBIT = 1f;
-
     }
 }

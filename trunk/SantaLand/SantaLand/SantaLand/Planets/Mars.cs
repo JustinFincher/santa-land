@@ -14,6 +14,7 @@ namespace SantaLand
         public Mars(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
+
             distanceToPrimary = new Vector3(orbiting.position.X + Constants.MARS_DISTANCE_FROM_SUN + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
             scale = Vector3.One * Constants.MARS_RELATIVE_SIZE;
             solarSpeed = Constants.EARTH_SOLAR_SPEED * (365.25f / Constants.MARS_NUMBER_OF_EARTH_DAYS_TO_ORBIT);

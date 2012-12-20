@@ -13,6 +13,9 @@ namespace SantaLand.Planets
         public Mercury(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
+            planeHeight = 256;
+            planeWidth = 128;
+
             distanceToPrimary = new Vector3(orbiting.position.X + Constants.MERCURY_DISTANCE_FROM_SUN + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
             scale = Vector3.One * Constants.MERCURY_RELATIVE_SIZE;
             solarSpeed = Constants.EARTH_SOLAR_SPEED * (365.25f / Constants.MERCURY_NUMBER_OF_EARTH_DAYS_TO_ORBIT);

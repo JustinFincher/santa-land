@@ -74,6 +74,8 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="FrameRateCounter.cs" />
+    <Compile Include="Planets\AsteroidBelt\Asteroid.cs" />
+    <Compile Include="Planets\AsteroidBelt\AsteroidBelt.cs" />
     <Compile Include="Planets\Constants.cs" />
     <Compile Include="Planets\Earth\Clouds.cs" />
     <Compile Include="Planets\Earth\Earth.cs" />

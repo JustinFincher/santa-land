@@ -162,7 +162,10 @@ namespace SantaLand
             gameObjects.Add(moon);
 
             Mars mars = new Mars(GraphicsDevice, sun);
-            gameObjects.Add(mars); 
+            gameObjects.Add(mars);
+
+            AsteroidBelt asteroidbelt = new AsteroidBelt(GraphicsDevice, sun);
+            gameObjects.Add(asteroidbelt);
 
             //adding planets to list
             planetList.Add(mercury);

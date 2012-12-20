@@ -11,7 +11,7 @@ namespace SantaLand
 {
     class NoClipCamera
     {
-        Vector3 cameraPosition = new Vector3(Constants.EARTH_DISTANCE_FROM_SUN + Constants.SUN_SIZE*MathHelper.Pi, 100.0f, 0.0f);
+        Vector3 cameraPosition = new Vector3(0f, 100.0f, 0.0f);
         float leftrightRot = -MathHelper.PiOver2;
         float updownRot = -MathHelper.Pi / 10.0f;
         const float rotationSpeed = 0.3f;

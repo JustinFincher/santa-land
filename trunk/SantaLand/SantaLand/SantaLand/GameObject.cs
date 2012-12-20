@@ -28,7 +28,8 @@ namespace SantaLand
 
         public virtual void Initialize()
         {
-            
+            foreach (GameObject child in children)
+                child.Initialize();
         }
 
         public virtual void LoadContent(ContentManager Content)
@@ -57,7 +58,8 @@ namespace SantaLand
 
             effect.LightingEnabled = true; // turn on the lighting subsystem.
             effect.DirectionalLight0.DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f);
-            effect.DirectionalLight0.Direction = lightDirection ?? Vector3.Normalize(position);  // coming along the x-axis
+            if (lightDirection == null) effect.DirectionalLight0.Direction = Vector3.Normalize(position);
+            else effect.DirectionalLight0.Direction = Vector3.Normalize((Vector3) lightDirection);
             effect.AmbientLightColor = new Vector3(0.05f, 0.05f, 0.05f);
             effect.EmissiveColor = new Vector3(0.05f, 0.05f, 0.05f);
 
