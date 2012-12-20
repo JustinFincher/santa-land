@@ -114,8 +114,7 @@ namespace SantaLand
             Matrix coordMatrix = Matrix.Identity;
             coordMatrix =
                 Matrix.CreateTranslation(new Vector3(0, planet.Radius, 0)) *
-                Matrix.CreateFromQuaternion(planetaryPosition) *
-                Matrix.CreateFromQuaternion(planet.rotation);
+                Matrix.CreateFromQuaternion(planetaryPosition);
             coords = coordMatrix.Translation;
             coords.Normalize();
 
