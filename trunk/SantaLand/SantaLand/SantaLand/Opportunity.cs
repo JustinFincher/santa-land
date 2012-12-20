@@ -11,7 +11,8 @@ namespace SantaLand
         public Opportunity(SantaLand game, Model model, Planet planet) 
             : base (game, model, planet)
         {
-
+            speed = 0.15f;
+            turnSpeed = 0.5f;
         }
     }
 }
