@@ -15,7 +15,7 @@ namespace SantaLand
         float leftrightRot = MathHelper.PiOver2;
         float updownRot = -MathHelper.Pi / 10.0f;
         const float rotationSpeed = 0.3f;
-        const float moveSpeed = 1000000.0f;
+        const float moveSpeed = 300000.0f;
         const float minViewDistance = 0.1f;
         const float maxViewDistance = 10000000.0f;
         MouseState originalMouseState;
