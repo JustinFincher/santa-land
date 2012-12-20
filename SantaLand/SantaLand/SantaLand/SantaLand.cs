@@ -165,6 +165,9 @@ namespace SantaLand
             Mars mars = new Mars(GraphicsDevice, sun);
             gameObjects.Add(mars);
 
+            Jupiter jupiter = new Jupiter(GraphicsDevice, sun);
+            gameObjects.Add(jupiter);
+
             AsteroidBelt asteroidbelt = new AsteroidBelt(GraphicsDevice, sun);
             gameObjects.Add(asteroidbelt);
 
