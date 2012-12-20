@@ -30,6 +30,7 @@ namespace SantaLand
         Camera camera;
         Opportunity oppportunity;
         List<Planet> planetList = new List<Planet>();
+        int currentPlanet = 2;
 
         public SantaLand()
         {
@@ -163,15 +164,15 @@ namespace SantaLand
             Mars mars = new Mars(GraphicsDevice, sun);
             gameObjects.Add(mars); 
 
-            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), earth);
-            gameObjects.Add(oppportunity);
-
             //adding planets to list
             planetList.Add(mercury);
             planetList.Add(venus);
             planetList.Add(earth);
             planetList.Add(moon);
             planetList.Add(mars);
+
+            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), planetList[currentPlanet]);
+            gameObjects.Add(oppportunity);
         }
 
         public void ProcessInput(GameTime gameTime)
@@ -200,9 +201,22 @@ namespace SantaLand
             if (keyState.IsKeyDown(Keys.F4))
                 fpsCounter.ShowFPS = false;
 
-            //if (keyState.IsKeyDown(Keys.PageUp))
-            //    if(nextPlanet < planetList)
-            //    oppportunity.planet = planetList[0];
+            if (keyState.IsKeyDown(Keys.PageUp))
+            {
+                if (currentPlanet < planetList.Count - 1)
+                {
+                    currentPlanet++;
+                    oppportunity.planet = planetList[currentPlanet];
+                }
+            }
+            else if (keyState.IsKeyDown(Keys.PageDown))
+            {
+                if (currentPlanet > 0)
+                {
+                    currentPlanet--;
+                    oppportunity.planet = planetList[currentPlanet];
+                }
+            }
         }
 
         
