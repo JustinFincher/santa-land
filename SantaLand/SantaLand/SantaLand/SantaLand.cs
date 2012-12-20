@@ -31,6 +31,7 @@ namespace SantaLand
         Opportunity oppportunity;
         List<Planet> planetList = new List<Planet>();
         int currentPlanet = 2;
+        bool isKeyPressed = false;
 
         public SantaLand()
         {
@@ -55,7 +56,7 @@ namespace SantaLand
         /// </summary>
         protected override void Initialize()
         {
-            debugCam = new NoClipCamera(this);
+            debugCam = new NoClipCamera(this);//, new Vector3(0, 3000, Constants.ASTEROID_BELT_DISTANCE_FROM_SUN), 0, (float)Math.PI);
             debugCam.Activate();
             camera = new Camera(this);
             CreateWorld();
@@ -186,40 +187,55 @@ namespace SantaLand
             if (keyState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            camera.CameraDistance = -mouse.ScrollWheelValue * 0.1f;
+            if(debugCam.Active == false)
+            camera.CameraDistance = -mouse.ScrollWheelValue * 0.1f + camera.startDistance;
 
-            //toggle noclip and fps
+            //activate noclip
             if (keyState.IsKeyDown(Keys.F1))
             {
                 debugCam.Activate();
-                camera.Deactivate();
+                camera.active = false;
+                oppportunity.active = false;
             }
+            //activate opportunity
             if (keyState.IsKeyDown(Keys.F2))
             {
                 debugCam.Deactivate();
-                camera.Activate();
+                camera.active = true;
+                oppportunity.active = true;
             }
-            if (keyState.IsKeyDown(Keys.F3))
+            //show fps
+            if (keyState.IsKeyDown(Keys.F11))
                 fpsCounter.ShowFPS = true;
-            if (keyState.IsKeyDown(Keys.F4))
+            //hide fps
+            if (keyState.IsKeyDown(Keys.F12))
                 fpsCounter.ShowFPS = false;
 
-            if (keyState.IsKeyDown(Keys.PageUp))
+            //switch planet
+            if (!isKeyPressed)
             {
-                if (currentPlanet < planetList.Count - 1)
+                if (keyState.IsKeyDown(Keys.PageUp))
                 {
-                    currentPlanet++;
-                    oppportunity.planet = planetList[currentPlanet];
+                    if (currentPlanet < planetList.Count - 1)
+                    {
+                        currentPlanet++;
+                        oppportunity.planet = planetList[currentPlanet];
+                    }
+                    isKeyPressed = true;
+                }
+                else if (keyState.IsKeyDown(Keys.PageDown))
+                {
+                    if (currentPlanet > 0)
+                    {
+                        currentPlanet--;
+                        oppportunity.planet = planetList[currentPlanet];
+                    }
+                    isKeyPressed = true;
                 }
             }
-            else if (keyState.IsKeyDown(Keys.PageDown))
-            {
-                if (currentPlanet > 0)
-                {
-                    currentPlanet--;
-                    oppportunity.planet = planetList[currentPlanet];
-                }
-            }
+
+            if (keyState.IsKeyUp(Keys.PageUp) && keyState.IsKeyUp(Keys.PageDown))
+                isKeyPressed = false; 
         }
 
         

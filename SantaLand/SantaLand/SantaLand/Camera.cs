@@ -9,13 +9,16 @@ namespace SantaLand
 {
     class Camera
     {
+        SantaLand game;
         Quaternion cameraRotation = Quaternion.Identity;
-        float minimumViewDistance = 0.1f;
-        float maximumViewDistance = 10000;
+        float minViewDistance = 0.1f;
+        float maxViewDistance = 10000;
         float cameraDelaySpeed = 1f;
         Vector3 thirdPersonReference = new Vector3(0, 5, -50);
+        float cameraDistance;
+        public float startDistance = 50;
+        public bool active = false;
 
-        float cameraDistance = 50;
         public float CameraDistance
         {
             get { return cameraDistance; }
@@ -23,27 +26,15 @@ namespace SantaLand
         }
 
         
-        bool activated = false;
-        SantaLand game;
 
         public Camera(SantaLand game)
         {
             this.game = game;
         }
 
-        public void Activate()
-        {
-           activated = true;
-        }
-
-        public void Deactivate()
-        {
-            activated = false;
-        }
-
         public void UpdateViewMatrix(GameObject cameraTarget)
         {
-            if (activated)
+            if (active)
             {
                 cameraRotation = Quaternion.Lerp(cameraRotation, cameraTarget.rotation, cameraDelaySpeed);
                 // Create a vector pointing the direction the camera is facing.
@@ -56,8 +47,8 @@ namespace SantaLand
                 Matrix.CreatePerspectiveFieldOfView(
                     MathHelper.PiOver4,
                     aspectRatio,
-                    minimumViewDistance,
-                    maximumViewDistance,
+                    minViewDistance,
+                    maxViewDistance,
                     out game.projection);
 
                 game.view = Matrix.CreateLookAt(cameraPosition, cameraTarget.position, Matrix.CreateFromQuaternion(cameraTarget.rotation).Up);
