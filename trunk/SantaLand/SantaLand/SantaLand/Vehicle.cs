@@ -13,8 +13,8 @@ namespace SantaLand
         protected Model model;
         protected SantaLand game;
 
-        private float speed = 0.0005f;
-        private float turnSpeed = 0.015f;
+        private float speed = 0.003f;
+        private float turnSpeed = 0.03f;
         public Planet planet;
         string turnDirection;
         string throttle;
@@ -88,7 +88,7 @@ namespace SantaLand
 
         private void CalculatePosition()
         {
-            Quaternion throttleQuat = new Quaternion((float)Math.Sin(speed), 0, 0, (float)Math.Cos(speed));
+            Quaternion throttleQuat = new Quaternion((float)Math.Sin(speed / planet.scale.X), 0, 0, (float)Math.Cos(speed / planet.scale.X));
             Quaternion turningQuat = new Quaternion(0, (float)Math.Sin(turnSpeed), 0, (float)Math.Cos(turnSpeed));
 
             if (turnDirection == "left")
@@ -100,22 +100,11 @@ namespace SantaLand
             else if (throttle == "reverse")
                 planetaryPosition = planetaryPosition * Quaternion.Inverse(throttleQuat);
 
-            //(2(qy*qw+qz*qx), 2(qz*qy-qw*qx), (qz^2+qw^2)-(qx^2+qy^2))
-            float a = 2 * (planetaryPosition.Y * planetaryPosition.W + planetaryPosition.Z * planetaryPosition.X);
-            float b = 2 * (planetaryPosition.Z * planetaryPosition.Y - planetaryPosition.W * planetaryPosition.X);
-            float c =
-                ((float)Math.Pow(planetaryPosition.Z, 2)
-                + (float)Math.Pow(planetaryPosition.W, 2))
-                - ((float)Math.Pow(planetaryPosition.X, 2)
-                + (float)Math.Pow(planetaryPosition.Y, 2));
-
-            Vector3 coords = new Vector3(a, b, c);
-
             Matrix coordMatrix = Matrix.Identity;
             coordMatrix =
                 Matrix.CreateTranslation(new Vector3(0, planet.Radius, 0)) *
                 Matrix.CreateFromQuaternion(planetaryPosition);
-            coords = coordMatrix.Translation;
+            Vector3 coords = coordMatrix.Translation;
             coords.Normalize();
 
             float latitude = (float)Math.Asin(coords.Y) * (float)(180.0 / Math.PI);
