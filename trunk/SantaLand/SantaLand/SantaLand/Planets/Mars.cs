@@ -14,6 +14,8 @@ namespace SantaLand
         public Mars(GraphicsDevice graphicsDevice, Sphere orbiting) 
             : base(graphicsDevice, orbiting)
         {
+            planeWidth = 1024;
+            planeHeight = 512;
 
             distanceToPrimary = new Vector3(orbiting.position.X + Constants.MARS_DISTANCE_FROM_SUN + orbiting.Radius, orbiting.position.Y, orbiting.position.Z);
             scale = Vector3.One * Constants.MARS_RELATIVE_SIZE;

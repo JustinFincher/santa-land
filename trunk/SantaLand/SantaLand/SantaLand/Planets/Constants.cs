@@ -7,10 +7,10 @@ namespace SantaLand.Planets
 {
     static class Constants
     {
-        public const float EARTH_SOLAR_SPEED = 0.00001f; //Determine how fast the solar system rotates.
+        public const float EARTH_SOLAR_SPEED = 0.000001f; //Determine how fast the solar system rotates.
 
         public const float PLANET_SIZE_RATIO = 10.0f; //Defines how much bigger the planets are.
-        public const float PLANET_DISTANCE_RATIO = 0.0001f;
+        public const float PLANET_DISTANCE_RATIO = 0.001f;
         public const float SUN_SIZE_RATIO = PLANET_DISTANCE_RATIO;
         public const float SUN_SIZE = 1300000f * SUN_SIZE_RATIO;
 
@@ -44,7 +44,6 @@ namespace SantaLand.Planets
         public const float SATURN_NUMBER_OF_EARTH_DAYS_TO_ORBIT = 10759.22f;
         public const float URANUS_NUMBER_OF_EARTH_DAYS_TO_ORBIT = 30799.095f;
         public const float NEPTUNE_NUMBER_OF_EARTH_DAYS_TO_ORBIT = 60190f;
-
 
         public const float MARS_NUMBER_OF_SPINS_PER_ORBIT = 686.971f * 0.97f;
         public const float EARTH_NUMBER_OF_SPINS_PER_ORBIT = 365.25f;
