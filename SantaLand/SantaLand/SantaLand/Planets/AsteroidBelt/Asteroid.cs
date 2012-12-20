@@ -13,8 +13,8 @@ namespace SantaLand.Planets
         public Asteroid(GraphicsDevice graphicsDevice, Sphere orbiting, Vector3 distanceToPrimary)
             : base(graphicsDevice, orbiting)
         {
-            planeWidth = 16;
-            planeHeight = 8;
+            planeWidth = 8;
+            planeHeight = 4;
 
             this.distanceToPrimary = distanceToPrimary;
 
