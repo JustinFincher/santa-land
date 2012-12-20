@@ -14,8 +14,8 @@ namespace SantaLand
         protected SantaLand game;
 
         public bool active = false;
-        private float speed = 0.003f;
-        private float turnSpeed = 0.015f;
+        protected float speed = 0.15f;
+        protected float turnSpeed = 0.5f;
         public Planet planet;
         string turnDirection;
         string throttle;
@@ -36,8 +36,7 @@ namespace SantaLand
         {
             ProcessInput(gameTime);
 
-            CalculatePosition();
-            //CalculateRotation();
+            CalculatePosition(gameTime);
 
             base.Update(gameTime);
         }
@@ -91,11 +90,17 @@ namespace SantaLand
             }
         }
 
-        private void CalculatePosition()
+        private void CalculatePosition(GameTime gameTime)
         {
+            float elapsedTime = gameTime.ElapsedGameTime.Milliseconds / 1000f;
+
             //Create rotational quaternions with ancient wizard magic 
-            Quaternion throttleQuat = new Quaternion((float)Math.Sin(speed / planet.scale.X), 0, 0, (float)Math.Cos(speed / planet.scale.X));
-            Quaternion turningQuat = new Quaternion(0, (float)Math.Sin(turnSpeed), 0, (float)Math.Cos(turnSpeed));
+            Quaternion throttleQuat = new Quaternion(
+                (float)Math.Sin(speed * elapsedTime / planet.scale.X), 0, 0,
+                (float)Math.Cos(speed * elapsedTime / planet.scale.X));
+            Quaternion turningQuat = new Quaternion(0, 
+                (float)Math.Sin(turnSpeed * elapsedTime), 0, 
+                (float)Math.Cos(turnSpeed * elapsedTime));
 
             //Transform the objects planetary position depending on current movement using quaternion magic
             if (turnDirection == "left")

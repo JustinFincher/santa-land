@@ -51,10 +51,8 @@ namespace SantaLand
         private void CalculatePosition()
         {
             Matrix positionMatrix = Matrix.Identity;
-
-            positionMatrix.Translation = distanceToPrimary;
             positionMatrix =
-                positionMatrix *
+                Matrix.CreateTranslation(distanceToPrimary) *
                 Matrix.CreateFromQuaternion(solarRotation) * 
                 Matrix.CreateTranslation(orbiting.position);
 

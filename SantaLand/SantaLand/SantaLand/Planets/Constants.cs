@@ -9,19 +9,20 @@ namespace SantaLand.Planets
     {
         public const float EARTH_SOLAR_SPEED = 0.00001f; //Determine how fast the solar system rotates.
 
-        public const float PLANET_SIZE_RATIO = 1.0f; //Defines how much bigger the planets are.
+        public const float PLANET_SIZE_RATIO = 10.0f; //Defines how much bigger the planets are.
         public const float PLANET_DISTANCE_RATIO = 0.001f;
         public const float SUN_SIZE_RATIO = PLANET_DISTANCE_RATIO;
         public const float SUN_SIZE = 1300000f * SUN_SIZE_RATIO;
 
-        public const float MARS_RELATIVE_SIZE = 0.151f * PLANET_SIZE_RATIO; //Defines how big mars is.
-        public const float MERCURY_RELATIVE_SIZE = 0.056f * PLANET_SIZE_RATIO; //Defines how big mercury is.
-        public const float VENUS_RELATIVE_SIZE = 0.866f * PLANET_SIZE_RATIO; //Defines how big venus is.
-        public const float MOON_RELATIVE_SIZE = 0.02f * PLANET_SIZE_RATIO; //Defines how big the moon is.
-        public const float JUPITER_RELATIVE_SIZE = 1321.3f * PLANET_SIZE_RATIO; //Defines how big jupiter is.
-        public const float SATURN_RELATIVE_SIZE = 763.59f * PLANET_SIZE_RATIO; //Defines how big saturn is.
-        public const float URANUS_RELATIVE_SIZE = 63.086f * PLANET_SIZE_RATIO; //Defines how big uranus is.
-        public const float NEPTUNE_RELATIVE_SIZE = 57.74f * PLANET_SIZE_RATIO; //Defines how big neptune is.
+        //Defines how big an orb is relative to earth.
+        public const float MARS_RELATIVE_SIZE = 0.533f * PLANET_SIZE_RATIO;
+        public const float MERCURY_RELATIVE_SIZE = 0.3829f * PLANET_SIZE_RATIO;
+        public const float VENUS_RELATIVE_SIZE = 0.9499f * PLANET_SIZE_RATIO;
+        public const float MOON_RELATIVE_SIZE = 0.273f * PLANET_SIZE_RATIO;
+        public const float JUPITER_RELATIVE_SIZE = 11.209f * PLANET_SIZE_RATIO;
+        public const float SATURN_RELATIVE_SIZE = 9.4492f * PLANET_SIZE_RATIO;
+        public const float URANUS_RELATIVE_SIZE = 4.007f * PLANET_SIZE_RATIO;
+        public const float NEPTUNE_RELATIVE_SIZE = 3.883f * PLANET_SIZE_RATIO;
 
         public const float EARTH_DISTANCE_FROM_SUN = 149669180f * PLANET_DISTANCE_RATIO;
         public const float MERCURY_DISTANCE_FROM_SUN = 46001200f * PLANET_DISTANCE_RATIO;
