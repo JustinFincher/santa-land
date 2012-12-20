@@ -15,7 +15,7 @@ namespace SantaLand
         {
             planeHeight = 16;
             planeWidth = 32;
-            scale *= 3000f;
+            scale *= 30000f;
         }
 
         public override void LoadContent(ContentManager Content)
