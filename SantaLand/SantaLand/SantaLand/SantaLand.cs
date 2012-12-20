@@ -168,6 +168,15 @@ namespace SantaLand
             Jupiter jupiter = new Jupiter(GraphicsDevice, sun);
             gameObjects.Add(jupiter);
 
+            Saturn saturn = new Saturn(GraphicsDevice, sun);
+            gameObjects.Add(saturn);
+
+            Uranus uranus = new Uranus(GraphicsDevice, sun);
+            gameObjects.Add(uranus);
+
+            Neptune neptune = new Neptune(GraphicsDevice, sun);
+            gameObjects.Add(neptune);
+
             AsteroidBelt asteroidbelt = new AsteroidBelt(GraphicsDevice, sun);
             gameObjects.Add(asteroidbelt);
 

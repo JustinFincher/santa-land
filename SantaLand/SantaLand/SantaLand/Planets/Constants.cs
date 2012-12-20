@@ -10,7 +10,7 @@ namespace SantaLand.Planets
         public const float EARTH_SOLAR_SPEED = 0.00001f; //Determine how fast the solar system rotates.
 
         public const float PLANET_SIZE_RATIO = 10.0f; //Defines how much bigger the planets are.
-        public const float PLANET_DISTANCE_RATIO = 0.001f;
+        public const float PLANET_DISTANCE_RATIO = 0.0001f;
         public const float SUN_SIZE_RATIO = PLANET_DISTANCE_RATIO;
         public const float SUN_SIZE = 1300000f * SUN_SIZE_RATIO;
 
