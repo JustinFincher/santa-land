@@ -13,8 +13,8 @@ namespace SantaLand
         public Skydome(GraphicsDevice graphicsDevice)
             : base(graphicsDevice)
         {
-            planeHeight = 10;
-            planeWidth = 20;
+            planeHeight = 16;
+            planeWidth = 32;
             scale *= 3000f;
         }
 

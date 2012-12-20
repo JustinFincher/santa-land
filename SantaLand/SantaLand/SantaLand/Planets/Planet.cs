@@ -12,13 +12,10 @@ namespace SantaLand
     {
         protected Sphere orbiting;
         protected Texture2D heightMap;
-        protected float rotationSpeed = 1;
-        protected float solarSpeed = 1;
+        protected float rotationSpeed = 0;
+        protected float solarSpeed = 0;
         protected Vector3 distanceToPrimary = Vector3.Zero;
         public Quaternion solarRotation = Quaternion.Identity;
-
-
-        public float[,] heightData;
 
         public Planet(GraphicsDevice graphicsDevice, Sphere orbiting) 
         {
@@ -28,7 +25,7 @@ namespace SantaLand
 
         public override void Initialize()
         {
-            LoadHeightData();
+            if(heightMap != null) LoadHeightData();
             InitializeVertices();
             InitializeIndices();
             SetNormals();
@@ -76,34 +73,6 @@ namespace SantaLand
             for (int x = 0; x < planeWidth; x++)
                 for (int y = 0; y < planeHeight; y++)
                     heightData[x, planeHeight-y-1] = 360 - (float)PlanetHelper.RGB2HSL(heightMapColors[(x * numberOfWidthVertices) + ((y * numberOfHeightVertices) * (numberOfHeightVertices * planeWidth))]).hue / 32;
-        }
-
-        protected override void InitializeVertices()
-        {
-            float yMax = planeHeight - 1;
-            float xMax = planeWidth;
-
-            vertices = new VertexPositionNormalTexture[planeWidth * planeHeight];
-            for (int y = 0; y < planeHeight; y++)
-            {
-                int x;
-
-                for (x = 0; x < planeWidth-1; x++)
-                {
-                    float radius = heightData[x, y] / -MathHelper.PiOver2;
-
-                    float ringradius = radius * (float)Math.Sin(y * Math.PI / yMax);
-                    Vector3 xyz = new Vector3((float)Math.Cos((xMax - x) * Math.PI * 2.0f / xMax) * ringradius, (float)Math.Cos(y * Math.PI / yMax) * radius, (float)Math.Sin((xMax - x) * Math.PI * 2.0f / xMax) * ringradius);
-
-                    vertices[x + y * planeWidth] = new VertexPositionNormalTexture(xyz, Vector3.Forward, new Vector2(((float)x / (planeWidth + 1)), (1f - (float)y / planeHeight)));
-
-                }
-                //Sew the edges together
-                vertices[planeWidth - 1 + y * planeWidth] = new VertexPositionNormalTexture(
-                    vertices[0 + y * planeWidth].Position,
-                    vertices[0 + y * planeWidth].Normal,
-                    new Vector2(1, (1f - (float)y / planeHeight)));
-            }
         }
     }
 

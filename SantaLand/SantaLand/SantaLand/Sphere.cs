@@ -9,6 +9,8 @@ namespace SantaLand
 {
     class Sphere : GameObject
     {
+        public float[,] heightData = null;
+
         public float Radius
         {
             get
@@ -49,7 +51,7 @@ namespace SantaLand
 
                 for (x = 0; x < planeWidth; x++)
                 {
-                    float radius = 360 / -MathHelper.PiOver2;
+                    float radius = GetHeightData(x, y) / -MathHelper.PiOver2;
 
                     float ringradius = radius * (float)Math.Sin(y * Math.PI / yMax);
                     Vector3 xyz = new Vector3((float)Math.Cos((xMax - x) * Math.PI * 2.0f / xMax) * ringradius, (float)Math.Cos(y * Math.PI / yMax) * radius, (float)Math.Sin((xMax - x) * Math.PI * 2.0f / xMax) * ringradius);
@@ -62,6 +64,12 @@ namespace SantaLand
                     vertices[0 + y * planeWidth].Normal,
                     new Vector2(1, (1f - (float)y / planeHeight)));
             }
+        }
+
+        private float GetHeightData(int x, int y)
+        {
+            if (heightData != null) return heightData[x, y];
+            return 360;
         }
 
         protected virtual void SetNormals()

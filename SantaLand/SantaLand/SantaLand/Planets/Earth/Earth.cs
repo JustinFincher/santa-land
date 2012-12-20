@@ -23,7 +23,7 @@ namespace SantaLand.Planets
             water.MinWaterLevel = 0.9818f;
             water.MaxWaterLevel = 1.0001f;
 
-            //children.Add(water);
+            children.Add(water);
             children.Add(new Clouds(graphicsDevice));
         }
 

@@ -140,6 +140,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Textures\Planets\Asteroid\phobos2k.jpg">
+      <Name>asteroidTextureHires</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Textures\Planets\Earth\earthHeightMap.jpg">
       <Name>earthHeightMap</Name>
       <Importer>TextureImporter</Importer>
