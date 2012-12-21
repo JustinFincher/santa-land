@@ -29,6 +29,7 @@ namespace SantaLand
         NoClipCamera debugCam;
         Camera camera;
         Opportunity oppportunity;
+        Grunt grunt;
         List<Planet> planetList = new List<Planet>();
         int currentPlanet = 2;
         bool isKeyPressed = false;
@@ -179,6 +180,12 @@ namespace SantaLand
 
             AsteroidBelt asteroidbelt = new AsteroidBelt(GraphicsDevice, sun);
             gameObjects.Add(asteroidbelt);
+            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), mercury, .1f);
+            gameObjects.Add(oppportunity);
+
+            grunt = new Grunt(this, Content.Load<Model>("Models/dude"), mercury, .1f);
+            grunt.active = true;
+            gameObjects.Add(grunt);
 
             //adding planets to list
             planetList.Add(mercury);
@@ -186,9 +193,6 @@ namespace SantaLand
             planetList.Add(earth);
             planetList.Add(moon);
             planetList.Add(mars);
-
-            oppportunity = new Opportunity(this, Content.Load<Model>("Models/opportunity"), planetList[currentPlanet]);
-            gameObjects.Add(oppportunity);
         }
 
         public void ProcessInput(GameTime gameTime)
