@@ -18,18 +18,18 @@ namespace SantaLand
         protected float turnSpeed = 0.5f;
         public Planet planet;
         string turnDirection;
-        string throttle;
+        protected string throttle;
         float modelOffset;
 
         Quaternion planetaryPosition = Quaternion.Identity;
 
-        public Vehicle(SantaLand game, Model model, Planet planet)
+        public Vehicle(SantaLand game, Model model, Planet planet, float scale)
         {
             this.model = model;
             this.game = game;
             this.planet = planet;
-            scale = Vector3.One * 1f;
-            modelOffset = 2.7f * scale.X;
+            this.scale = Vector3.One * scale;
+            modelOffset = 2.7f * scale;
         }
 
         public override void Update(GameTime gameTime)
@@ -41,7 +41,7 @@ namespace SantaLand
             base.Update(gameTime);
         }
 
-        private void ProcessInput(GameTime gameTime)
+        protected void ProcessInput(GameTime gameTime)
         {
             if (active)
             {
@@ -68,7 +68,7 @@ namespace SantaLand
             if (model != null)
             {
                 Matrix[] transforms = new Matrix[model.Bones.Count];
-                float aspectRatio = game.GraphicsDevice.Viewport.Width / game.GraphicsDevice.Viewport.Height;
+                float aspectRatio = (float)game.GraphicsDevice.Viewport.Width / game.GraphicsDevice.Viewport.Height;
                 model.CopyAbsoluteBoneTransformsTo(transforms);
 
                 foreach (ModelMesh mesh in model.Meshes)
@@ -90,7 +90,7 @@ namespace SantaLand
             }
         }
 
-        private void CalculatePosition(GameTime gameTime)
+        protected void CalculatePosition(GameTime gameTime)
         {
             float elapsedTime = gameTime.ElapsedGameTime.Milliseconds / 1000f;
 

@@ -10,7 +10,8 @@
     <RootNamespace>SantaLand</RootNamespace>
     <AssemblyName>SantaLand</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
@@ -74,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="FrameRateCounter.cs" />
+    <Compile Include="Grunt.cs" />
     <Compile Include="Planets\AsteroidBelt\Asteroid.cs" />
     <Compile Include="Planets\AsteroidBelt\AsteroidBelt.cs" />
     <Compile Include="Planets\Constants.cs" />
@@ -111,6 +113,14 @@
       <Name>SantaLandContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
+    <ProjectReference Include="..\SkinnedModelPipeline\SkinnedModelPipeline.csproj">
+      <Project>{4636C7E1-B845-4B83-B96D-64A11B8A4515}</Project>
+      <Name>SkinnedModelPipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SkinnedModel\SkinnedModelWindows.csproj">
+      <Project>{0D41E29B-829F-4255-BCA5-64DC2677DA6D}</Project>
+      <Name>SkinnedModelWindows</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -138,6 +148,9 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
