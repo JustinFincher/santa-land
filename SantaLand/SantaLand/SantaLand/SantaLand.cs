@@ -27,7 +27,8 @@ namespace SantaLand
         Vector3 campos = new Vector3(0, 0, 20);
 
         NoClipCamera debugCam;
-        Camera camera;
+        Camera opportunityCam;
+        Camera gruntCam;
         Opportunity oppportunity;
         Grunt grunt;
         List<Planet> planetList = new List<Planet>();
@@ -59,7 +60,8 @@ namespace SantaLand
         {
             debugCam = new NoClipCamera(this);//, new Vector3(0, 3000, Constants.ASTEROID_BELT_DISTANCE_FROM_SUN), 0, (float)Math.PI);
             debugCam.Activate();
-            camera = new Camera(this);
+            opportunityCam = new Camera(this);
+            gruntCam = new Camera(this);
             CreateWorld();
 
             //view = Matrix.CreateLookAt(campos, Vector3.Zero, Vector3.Up);
@@ -107,7 +109,8 @@ namespace SantaLand
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             ProcessInput(gameTime);
-            camera.UpdateViewMatrix(oppportunity);
+            opportunityCam.UpdateViewMatrix(oppportunity);
+            gruntCam.UpdateViewMatrix(grunt);
             debugCam.ProcessInput(gameTime);
 
             campos = new Vector3(0, 0, campos.Z + 0.1f);
@@ -203,22 +206,37 @@ namespace SantaLand
             if (keyState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            if(debugCam.Active == false)
-            camera.CameraDistance = -mouse.ScrollWheelValue * 0.1f + camera.startDistance;
+            if (opportunityCam.active)
+                opportunityCam.CameraDistance = -mouse.ScrollWheelValue * 0.1f + opportunityCam.startDistance;
+            if (grunt.active)
+                gruntCam.CameraDistance = -mouse.ScrollWheelValue * 0.1f + gruntCam.startDistance;
 
             //activate noclip
             if (keyState.IsKeyDown(Keys.F1))
             {
                 debugCam.Activate();
-                camera.active = false;
+                opportunityCam.active = false;
                 oppportunity.active = false;
+                gruntCam.active = false;
+                grunt.active = false;
             }
             //activate opportunity
             if (keyState.IsKeyDown(Keys.F2))
             {
                 debugCam.Deactivate();
-                camera.active = true;
+                opportunityCam.active = true;
                 oppportunity.active = true;
+                gruntCam.active = false;
+                grunt.active = false;
+            }
+            //activate grunt
+            if (keyState.IsKeyDown(Keys.F2))
+            {
+                debugCam.Deactivate();
+                opportunityCam.active = false;
+                oppportunity.active = false;
+                gruntCam.active = true;
+                grunt.active = true;
             }
             //show fps
             if (keyState.IsKeyDown(Keys.F11))
