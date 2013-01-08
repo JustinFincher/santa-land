@@ -230,7 +230,7 @@ namespace SantaLand
                 grunt.active = false;
             }
             //activate grunt
-            if (keyState.IsKeyDown(Keys.F2))
+            if (keyState.IsKeyDown(Keys.F3))
             {
                 debugCam.Deactivate();
                 opportunityCam.active = false;
